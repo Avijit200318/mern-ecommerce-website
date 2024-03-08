@@ -5,6 +5,8 @@ import About from "./pages/About";
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Header from './components/Header';
+import Contact from './pages/Contact';
+import Cart from './pages/Cart';
 
 const App = () => {
   return <BrowserRouter >
@@ -14,6 +16,8 @@ const App = () => {
       <Route path='/about' element={<About />} />
       <Route path='/sign-in' element={<SignIn />} />
       <Route path='/sign-up' element={<SignUp />} />
+      <Route path='/contact' element={<Contact />} />
+      <Route path='/cart' element={<Cart />} />
     </Routes>
   </BrowserRouter>
 }
