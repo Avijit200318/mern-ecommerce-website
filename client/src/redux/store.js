@@ -1,23 +1,24 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import userReducer from "./user/userSlice.js";
-import storage from "redux-persist/lib/storage";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import userReducer from './user/userSlice';
 import { persistReducer, persistStore } from 'redux-persist';
+import sessionStorage from 'redux-persist/lib/storage/session';
 
-const rootReducer = combineReducers({user: userReducer});
+const rootReducer = combineReducers({ user: userReducer });
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: sessionStorage, // Use sessionStorage instead of localStorage
   version: 1,
-}
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export const persistor = persistStore(store);
