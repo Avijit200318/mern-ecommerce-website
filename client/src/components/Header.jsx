@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import Logo from "../../public/images/logo.png";
 import { IoSearch } from "react-icons/io5";
 import { FaCartShopping } from "react-icons/fa6";
-
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+  const {currentUser} = useSelector((state)=> state.user);
+  console.log("current user is ", currentUser);
   return (
     <header className=''>
       <div className="flex w-full justify-between items-center bg-[#0d6efd] px-10 py-2">
@@ -27,7 +29,13 @@ export default function Header() {
         </form>
         <div className="allBtns flex justify-between items-center gap-4 text-white font-semibold">
           <Link to='/cart' className="text-2xl mx-4"><FaCartShopping /></Link>
-          <Link to='/sign-in' className="text-xl mx-4 mb-[5px]">Login</Link>
+          {currentUser ? (
+            <Link to='/profile'>
+              <img src={currentUser.avatar} alt="" className='w-[2.5rem] border-2 border-white rounded-full bg-[#96EFFF]' />
+            </Link>
+          ):(
+            <Link to='/sign-in' className="text-xl mx-4 mb-[5px]">Login</Link>
+          )}
         </div>
       </div>
     </header>

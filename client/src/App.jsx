@@ -7,6 +7,8 @@ import SignUp from './pages/SignUp';
 import Header from './components/Header';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
+import Profile from './pages/Profile';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   return <BrowserRouter >
@@ -18,6 +20,9 @@ const App = () => {
       <Route path='/sign-up' element={<SignUp />} />
       <Route path='/contact' element={<Contact />} />
       <Route path='/cart' element={<Cart />} />
+      <Route element={<PrivateRoute />}>
+        <Route path='/profile' element={<Profile />} />
+      </Route>
     </Routes>
   </BrowserRouter>
 }
