@@ -31,7 +31,7 @@ export default function Header() {
           <Link to='/cart' className="text-2xl mx-4"><FaCartShopping /></Link>
           {currentUser ? (
             <Link to='/profile'>
-              <img src={currentUser.avatar} alt="" className='w-[2.5rem] border-2 border-white rounded-full bg-[#96EFFF]' />
+              <img src={currentUser.avatar} alt="" className='w-[2.5rem] h-[2.5rem] border-2 border-white object-cover rounded-full overflow-hidden bg-[#96EFFF]' />
             </Link>
           ):(
             <Link to='/sign-in' className="text-xl mx-4 mb-[5px]">Login</Link>
