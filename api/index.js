@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
+import productRouter from "./routes/product.route.js";
 
 dotenv.config();
 
@@ -24,8 +25,8 @@ app.listen(3000, ()=> {
 
 // write all the routes here
 app.use("/api/user", userRouter);
-
 app.use("/api/auth", authRouter);
+app.use("/api/product", productRouter);
 
 
 // error handle middelware

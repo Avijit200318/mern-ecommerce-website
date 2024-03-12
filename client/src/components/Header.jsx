@@ -22,9 +22,9 @@ export default function Header() {
           <Link to='/about' className='text-lg'>About</Link>
           <Link to='/contact' className='text-lg'>Contact</Link>
         </div>
-        <form action="" className="w-[40%] pl-8 bg-white relative rounded-full overflow-hidden">
-          <input type="text" className="w-full px-3 py-2 outline-none" placeholder='Search' />
-          <button className='absolute top-2 left-3 text-2xl'><IoSearch />
+        <form action="" className="w-[40%] pr-8 bg-white relative rounded-full overflow-hidden">
+          <input type="text" className="w-full px-4 py-2 outline-none" placeholder='Search...' />
+          <button className='absolute top-2 right-3 text-2xl'><IoSearch />
 </button>
         </form>
         <div className="allBtns flex justify-between items-center gap-4 text-white font-semibold">
