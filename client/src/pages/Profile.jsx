@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { app } from "../firebase";
-import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
+import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import { MdDelete } from "react-icons/md";
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -19,6 +20,8 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const {loading, error} = useSelector((state)=> state.user);
+
+  const [userUpdate, setUserUpdate] = useState(false);
 
   useEffect(() => {
     if (file) {
@@ -73,8 +76,26 @@ export default function Profile() {
         return;
       }
       dispatch(updateUserSuccess(data));
+      setUserUpdate(true);
     }catch(error){
       dispatch(updateUserFailure(error.message));
+    }
+  }
+
+  const handleDeleteUser = async () => {
+    try{
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      })
+      const data = res.json();
+      if(data.success === false){
+        dispatch(deleteUserFailure(data));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    }catch(error){
+      dispatch(deleteUserFailure(error.message));
     }
   }
 
@@ -97,6 +118,7 @@ export default function Profile() {
       {error && (
         <span className="text-red-700 font-semibold absolute top-[15.5rem]">{error}</span>
       )}
+      {userUpdate ? <span className='text-green-600 font-semibold absolute top-[15.5rem]'>User updated successfully</span> : ''}
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 px-8 pt-8 pb-0 w-[30rem] rounded-lg">
           <input type="file" hidden onChange={(e) => setFile(e.target.files[0])} ref={fileRef} accept='image/*' />
           <input type="text" placeholder='username' id='username' className="px-4 py-3 rounded-lg w-full" defaultValue={currentUser.username} onChange={handleChange} />
@@ -107,7 +129,7 @@ export default function Profile() {
         </form>
         <Link to='' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</Link>
         <Link to='' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
-        <Link to='' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</Link>
+        <button onClick={handleDeleteUser} className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
       </div>
     </div>
   )
