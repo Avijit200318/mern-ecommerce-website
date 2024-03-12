@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { app } from "../firebase";
-import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess } from '../redux/user/userSlice';
+import { updateUserFailure, updateUserStart, updateUserSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserStart, signOutUserSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { MdDelete } from "react-icons/md";
 
@@ -97,6 +97,21 @@ export default function Profile() {
     }catch(error){
       dispatch(deleteUserFailure(error.message));
     }
+  };
+
+  const handleSignOut = async () => {
+    try{
+      dispatch(signOutUserSuccess());
+      const res = await fetch("/api/auth/signout");
+      const data = res.json();
+      if(data.success === false){
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    }catch(error){
+      dispatch(signOutUserFailure(error.message));
+    }
   }
 
   return (
@@ -127,7 +142,7 @@ export default function Profile() {
           <textarea cols="30" placeholder='Address' id='address' className="w-full rounded-lg p-4 resize-none" defaultValue={currentUser.address} onChange={handleChange}></textarea>
           <button disabled={loading} className="w-full uppercase bg-[#0d6efd] p-3 font-semibold rounded-lg text-white disabled:bg-blue-500 transition-all duration-300 hover:bg-blue-700">{loading ? 'Updating...' : 'Update'}</button>
         </form>
-        <Link to='' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</Link>
+        <button onClick={handleSignOut} className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
         <Link to='' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
         <button onClick={handleDeleteUser} className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
       </div>
