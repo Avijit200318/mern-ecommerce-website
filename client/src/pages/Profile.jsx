@@ -116,7 +116,7 @@ export default function Profile() {
 
   return (
     <div className='bg-[#DCF2F1]'>
-      <div className="flex flex-col items-center py-16 gap-4 relative">
+      <div className="flex flex-col items-center py-12 gap-4 relative">
         <h1 className="text-3xl font-semibold">Profile</h1>
           <img src={ formData.avatar || currentUser.avatar} onClick={() => fileRef.current.click()} alt="" className='rounded-full h-24 w-24 object-cover cursor-pointer mt-4 border-4 border-white' />
         {fileUploadError ? (
@@ -143,7 +143,7 @@ export default function Profile() {
           <button disabled={loading} className="w-full uppercase bg-[#0d6efd] p-3 font-semibold rounded-lg text-white disabled:bg-blue-500 transition-all duration-300 hover:bg-blue-700">{loading ? 'Updating...' : 'Update'}</button>
         </form>
         <button onClick={handleSignOut} className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
-        <Link to='' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
+        <Link to='/create-product' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
         <button onClick={handleDeleteUser} className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
       </div>
     </div>

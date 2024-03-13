@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
+import CreateProduct from './pages/CreateProduct';
 
 const App = () => {
   return <BrowserRouter >
@@ -22,6 +23,7 @@ const App = () => {
       <Route path='/cart' element={<Cart />} />
       <Route element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />} />
+        <Route path='/create-product' element={<CreateProduct />} />
       </Route>
     </Routes>
   </BrowserRouter>

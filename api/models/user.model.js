@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         ref: "Product",
     }],
+    order: {
+        type: Array,
+        ref: "Product",
+    }
 }, {timestamps: true});
 
 const User = mongoose.model("User", userSchema);
