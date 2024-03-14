@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import CreateProduct from './pages/CreateProduct';
 import Product from './pages/Product';
+import UserProducts from './pages/UserProducts';
 
 const App = () => {
   return <BrowserRouter >
@@ -26,6 +27,7 @@ const App = () => {
       <Route element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />} />
         <Route path='/create-product' element={<CreateProduct />} />
+        <Route path='/userProducts/:userId' element={<UserProducts />} />
       </Route>
     </Routes>
   </BrowserRouter>

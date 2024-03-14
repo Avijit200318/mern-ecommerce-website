@@ -122,18 +122,18 @@ export default function Profile() {
         {fileUploadError ? (
           <span className="text-red-700 absolute font-semibold top-[14rem]">Error Image Upload (Image size must be less than 2MB)</span>
         ): filePercent > 0 && filePercent < 100 ? (
-          <span className="text-green-500 absolute top-[14rem]">{`Uploading ${filePercent}%`}</span>
+          <span className="text-green-500 absolute top-[13rem]">{`Uploading ${filePercent}%`}</span>
         ): filePercent === 100 ? (
-          <span className="text-green-500 absolute top-[14rem]">Image sucessfully uploaded</span>
+          <span className="text-green-500 absolute top-[13rem]">Image sucessfully uploaded</span>
         ): (
           ''
         )
       }
       {/* update error which I add latter */}
       {error && (
-        <span className="text-red-700 font-semibold absolute top-[15.5rem]">{error}</span>
+        <span className="text-red-700 font-semibold absolute top-[14.5rem]">{error}</span>
       )}
-      {userUpdate ? <span className='text-green-600 font-semibold absolute top-[15.5rem]'>User updated successfully</span> : ''}
+      {userUpdate ? <span className='text-green-600 font-semibold absolute top-[14.5rem]'>User updated successfully</span> : ''}
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 px-8 pt-8 pb-0 w-[30rem] rounded-lg">
           <input type="file" hidden onChange={(e) => setFile(e.target.files[0])} ref={fileRef} accept='image/*' />
           <input type="text" placeholder='username' id='username' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.username} onChange={handleChange} />
@@ -143,7 +143,7 @@ export default function Profile() {
           <button disabled={loading} className="w-full uppercase bg-[#0d6efd] p-3 font-semibold rounded-lg text-white disabled:bg-blue-500 transition-all duration-300 hover:bg-blue-700">{loading ? 'Updating...' : 'Update'}</button>
         </form>
         <Link to='/create-product' className='bg-blue-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
-        <button className='bg-green-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Your Products</button>
+        <Link to={`/userProducts/${currentUser._id}`} className='bg-green-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Your Products</Link>
         <button onClick={handleSignOut} className='bg-red-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
         <button onClick={handleDeleteUser} className='bg-red-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
       </div>

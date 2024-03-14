@@ -39,4 +39,17 @@ export const deleteUser = async (req, res, next) => {
     }catch(error){
         next(error);
     }
+};
+
+export const userProducts = async(req, res, next) => {
+    if(req.user.id === req.params.id){
+        try{
+            const products = await productModel.find({userRef: req.params.id});
+            res.status(200).json(products);
+        }catch(error){
+            next(error);
+        }
+    }else{
+        return next(errorHandle(401, "You can only see your own products!"));
+    }
 }
