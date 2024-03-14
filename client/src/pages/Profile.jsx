@@ -136,15 +136,16 @@ export default function Profile() {
       {userUpdate ? <span className='text-green-600 font-semibold absolute top-[15.5rem]'>User updated successfully</span> : ''}
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 px-8 pt-8 pb-0 w-[30rem] rounded-lg">
           <input type="file" hidden onChange={(e) => setFile(e.target.files[0])} ref={fileRef} accept='image/*' />
-          <input type="text" placeholder='username' id='username' className="px-4 py-3 rounded-lg w-full" defaultValue={currentUser.username} onChange={handleChange} />
-          <input type="email" placeholder='email' id='email' className="px-4 py-3 rounded-lg w-full" defaultValue={currentUser.email} onChange={handleChange} />
-          <input type="password" placeholder='password' id='password' className="px-4 py-3 rounded-lg w-full" onChange={handleChange} />
-          <textarea cols="30" placeholder='Address' id='address' className="w-full rounded-lg p-4 resize-none" defaultValue={currentUser.address} onChange={handleChange}></textarea>
+          <input type="text" placeholder='username' id='username' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.username} onChange={handleChange} />
+          <input type="email" placeholder='email' id='email' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.email} onChange={handleChange} />
+          <input type="password" placeholder='password' id='password' className="px-4 py-3 rounded-lg w-full border border-black" onChange={handleChange} />
+          <textarea cols="30" placeholder='Address' id='address' className="w-full rounded-lg p-4 resize-none border border-black" defaultValue={currentUser.address} onChange={handleChange}></textarea>
           <button disabled={loading} className="w-full uppercase bg-[#0d6efd] p-3 font-semibold rounded-lg text-white disabled:bg-blue-500 transition-all duration-300 hover:bg-blue-700">{loading ? 'Updating...' : 'Update'}</button>
         </form>
-        <button onClick={handleSignOut} className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
-        <Link to='/create-product' className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
-        <button onClick={handleDeleteUser} className='bg-red-500 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
+        <Link to='/create-product' className='bg-blue-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
+        <button className='bg-green-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Your Products</button>
+        <button onClick={handleSignOut} className='bg-red-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
+        <button onClick={handleDeleteUser} className='bg-red-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
       </div>
     </div>
   )

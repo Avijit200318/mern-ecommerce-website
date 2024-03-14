@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function Header() {
   const {currentUser} = useSelector((state)=> state.user);
-  console.log("current user is ", currentUser);
+  // console.log("current user is ", currentUser);
   return (
     <header className=''>
       <div className="flex w-full justify-between items-center bg-[#0d6efd] px-10 py-2">

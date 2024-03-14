@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import { errorHandle } from "../utils/error.js";
 import userModel from "../models/user.model.js";
+import productModel from "../models/product.model.js";
 
 export const updateUser = async (req, res, next) => {
     if (req.user.id !== req.params.id) return next(errorHandle(401, 'You can only update your own account!'));
@@ -31,6 +32,7 @@ export const updateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
     if(req.user.id !== req.params.id) return next(errorHandle(401, "You can only delete your own account"));
     try{
+        await productModel.deleteMany({userRef: req.params.id});
         await userModel.findByIdAndDelete(req.params.id);
         res.clearCookie('access_token');
         res.status(200).json("user has been deleted");
