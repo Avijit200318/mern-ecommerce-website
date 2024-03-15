@@ -42,7 +42,7 @@ const productSchema = new mongoose.Schema({
     processor: {
         type: String,
     },
-    warranty: {
+    waranty: {
         type: String,
     },
     delivaryFee: {

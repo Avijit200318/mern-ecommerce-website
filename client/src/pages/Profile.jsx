@@ -143,7 +143,7 @@ export default function Profile() {
           <button disabled={loading} className="w-full uppercase bg-[#0d6efd] p-3 font-semibold rounded-lg text-white disabled:bg-blue-500 transition-all duration-300 hover:bg-blue-700">{loading ? 'Updating...' : 'Update'}</button>
         </form>
         <Link to='/create-product' className='bg-blue-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
-        <Link to={`/userProducts/${currentUser._id}`} className='bg-green-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Your Products</Link>
+        <Link to='/userProducts' className='bg-green-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Your Products</Link>
         <button onClick={handleSignOut} className='bg-red-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
         <button onClick={handleDeleteUser} className='bg-red-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
       </div>

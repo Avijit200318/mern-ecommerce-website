@@ -27,7 +27,7 @@ const App = () => {
       <Route element={<PrivateRoute />}>
         <Route path='/profile' element={<Profile />} />
         <Route path='/create-product' element={<CreateProduct />} />
-        <Route path='/userProducts/:userId' element={<UserProducts />} />
+        <Route path='/userProducts' element={<UserProducts />} />
       </Route>
     </Routes>
   </BrowserRouter>
