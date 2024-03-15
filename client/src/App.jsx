@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import CreateProduct from './pages/CreateProduct';
 import Product from './pages/Product';
 import UserProducts from './pages/UserProducts';
+import UpdateProduct from './pages/UpdateProduct';
 
 const App = () => {
   return <BrowserRouter >
@@ -28,6 +29,7 @@ const App = () => {
         <Route path='/profile' element={<Profile />} />
         <Route path='/create-product' element={<CreateProduct />} />
         <Route path='/userProducts' element={<UserProducts />} />
+        <Route path='/updateProduct/:productId' element={<UpdateProduct/>} />
       </Route>
     </Routes>
   </BrowserRouter>

@@ -43,4 +43,16 @@ export const updateProduct = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+export const getProduct = async (req, res, next) => {
+    try{
+        const product = await productModel.findById(req.params.id);
+        if(!product) {
+            return next(errorHandle(404, "Product not fonund"));
+        }
+        res.status(200).json(product);
+    }catch(error){
+        next(error);
+    }
 }

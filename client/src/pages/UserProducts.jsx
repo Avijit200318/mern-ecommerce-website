@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 export default function UserProducts() {
     const { currentUser } = useSelector((state) => state.user);
@@ -68,7 +69,7 @@ export default function UserProducts() {
                                         <li className="text-sm">{product.waranty} Manufacturing Warranty</li>
                                     </ul>
                                     <div className="flex gap-8 mt-2">
-                                        <button className="bg-blue-500 text-white px-2 py-1 rounded-md w-16">Edit</button>
+                                        <Link to={`/updateProduct/${product._id}`} className="bg-blue-500 text-white px-2 text-center py-1 rounded-md w-16">Edit</Link>
                                         <button onClick={()=>handleDelete(product._id)} className="bg-red-500 text-white px-2 py-1 rounded-md w-16">Delete</button>
                                     </div>
                                 </div>
@@ -96,7 +97,7 @@ export default function UserProducts() {
                                         <li className="text-sm">{product.waranty} Manufacturing Warranty</li>
                                     </ul>
                                     <div className="flex gap-8 mt-2">
-                                        <button className="bg-blue-500 text-white px-2 py-1 rounded-md w-16">Edit</button>
+                                        <Link to={`/updateProduct/${product._id}`} className="bg-blue-500 text-white px-2 text-center py-1 rounded-md w-16">Edit</Link>
                                         <button onClick={()=>handleDelete(product._id)} className="bg-red-500 text-white px-2 py-1 rounded-md w-16">Delete</button>
                                     </div>
                                 </div>
