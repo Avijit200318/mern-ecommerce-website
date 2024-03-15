@@ -30,6 +30,22 @@ export default function UserProducts() {
     }, []);
 
 
+    const handleDelete = async (productId) => {
+        try{
+            const res = await fetch(`/api/product/delete/${productId}`, {
+                method: 'DELETE',
+            });
+            const data = await res.json();
+            if(data.success === false){
+                console.log(data.message);
+                return;
+            }
+            setUserProducts((prev)=> prev.filter((product)=> product._id !== productId));
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+
     return (
         <div>
             <h1 className='text-center text-3xl my-6 font-semibold'>Your Products</h1>
@@ -53,7 +69,7 @@ export default function UserProducts() {
                                     </ul>
                                     <div className="flex gap-8 mt-2">
                                         <button className="bg-blue-500 text-white px-2 py-1 rounded-md w-16">Edit</button>
-                                        <button className="bg-red-500 text-white px-2 py-1 rounded-md w-16">Delete</button>
+                                        <button onClick={()=>handleDelete(product._id)} className="bg-red-500 text-white px-2 py-1 rounded-md w-16">Delete</button>
                                     </div>
                                 </div>
                                 <div className="price p-4">
@@ -81,7 +97,7 @@ export default function UserProducts() {
                                     </ul>
                                     <div className="flex gap-8 mt-2">
                                         <button className="bg-blue-500 text-white px-2 py-1 rounded-md w-16">Edit</button>
-                                        <button className="bg-red-500 text-white px-2 py-1 rounded-md w-16">Delete</button>
+                                        <button onClick={()=>handleDelete(product._id)} className="bg-red-500 text-white px-2 py-1 rounded-md w-16">Delete</button>
                                     </div>
                                 </div>
                                 <div className="price p-4">
