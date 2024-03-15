@@ -1,4 +1,6 @@
 import productModel from "../models/product.model.js";
+import { errorHandle } from "../utils/error.js";
+
 export const createProduct = async (req, res, next) => {
     try{
         const product = await productModel.create(req.body);
@@ -6,4 +8,20 @@ export const createProduct = async (req, res, next) => {
     }catch(error){
         next(error);
     }
-}
+};
+
+export const deleteProduct = async (req, res, next) => {
+    const product = await productModel.findById(req.params.id);
+    if(!product) return next(errorHandle(404, "Product not found"));
+
+    if(req.user.id !== product.userRef){
+        return next(errorHandle(401, "You can only delete your own porducts"));
+    }
+
+    try{
+        await productModel.findByIdAndDelete(req.params.id);
+        res.status(200).json("product has been deleted");
+    }catch(error){
+        next(error);
+    }
+};
