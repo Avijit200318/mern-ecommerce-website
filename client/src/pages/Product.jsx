@@ -28,6 +28,7 @@ export default function Product() {
   // console.log(showImage);
   const [imageIndex, setImageIndex] = useState(0);
   const [colorImageIndex, setColorImageIndex] = useState(0);
+  const [cartItemError, setCartItemError] = useState(null);
 
 
   useEffect(() => {
@@ -76,7 +77,7 @@ export default function Product() {
 
   const handelMouseEnter = (url, index) => {
     setShowImage(url);
-    if(index === 0){
+    if (index === 0) {
       setImageIndex(0);
       setColorImageIndex(0);
     }
@@ -85,9 +86,45 @@ export default function Product() {
 
   const handleImageClick = (url, index) => {
     setShowImage(url);
-    setColorImageIndex(index+1);
+    setColorImageIndex(index + 1);
     setImageIndex(0);
-  }
+  };
+
+  const handleaddToCart = async () => {
+    try {
+      const res = await fetch("/api/cart/add", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: product.name,
+          price: product.price,
+          image: product.image[0],
+          userRef: currentUser._id,
+          productId: params.productId,
+        }),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setCartItemError(data.message);
+        return;
+      }
+      console.log("item is added to the cart");
+    } catch (error) {
+      setCartItemError(error);
+    }
+  };
+
+  useEffect(() => {
+    if (cartItemError) {
+      const timer = setTimeout(() => {
+        setCartItemError(null);
+      }, 3000); // 5000 milliseconds = 5 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [cartItemError]);
 
   return (
     <main>
@@ -102,9 +139,9 @@ export default function Product() {
             <div id='left' className="flex gap-2">
               <div className="colum flex flex-col  bg-white ">
                 {product.image.length > 0 && product.image.map((url, index) =>
-                <div key={url} className={`w-20 h-20 border-2 ${imageIndex === index ? 'border-blue-600': ''} hover:border-2 hover:border-blue-500`}>
-                  <img key={index} src={url} onMouseEnter={()=>handelMouseEnter(url, index)} alt="" className="w-full h-full object-contain" />
-                </div>
+                  <div key={url} className={`w-20 h-20 border-2 ${imageIndex === index ? 'border-blue-600' : ''} hover:border-2 hover:border-blue-500`}>
+                    <img key={index} src={url} onMouseEnter={() => handelMouseEnter(url, index)} alt="" className="w-full h-full object-contain" />
+                  </div>
                 )}
               </div>
               <div className="">
@@ -112,9 +149,12 @@ export default function Product() {
                   <img src={showImage} alt="" className="w-full h-full object-contain" />
                 </div>
                 <div className="btn w-full flex justify-between my-4">
-                  <button className='flex justify-center items-center font-semibold uppercase gap-4 bg-[#ff9f00] text-white py-3 px-4 w-48'><IoCart className='text-xl' /> Add to Cart</button>
+                  <button onClick={() => handleaddToCart()} className='flex justify-center items-center font-semibold uppercase gap-4 bg-[#ff9f00] text-white py-3 px-4 w-48'><IoCart className='text-xl' /> Add to Cart</button>
                   <button className="flex justify-center items-center font-semibold uppercase gap-4 bg-[#fb641b] text-white py-3 px-4 w-48"><IoIosGift /> Buy Now</button>
                 </div>
+                {cartItemError && (
+                  <p className="absolute text-red-600 font-semibold">{cartItemError}</p>
+                )}
               </div>
 
             </div>
@@ -153,13 +193,13 @@ export default function Product() {
               <div className="my-4">
                 <h2 className="font-semibold text-gray-500 my-4">Colors:</h2>
                 <div className="flex gap-2 flex-wrap">
-                  <div className={`w-16 p-1 border-2 ${colorImageIndex === 0? 'border-blue-600' : ''} `}>
-                  <img onClick={()=>handleImageClick(product.image[0], -1)} src={product.image[0]} alt="" className="w-full object-contain" />
+                  <div className={`w-16 p-1 border-2 ${colorImageIndex === 0 ? 'border-blue-600' : ''} cursor-pointer `}>
+                    <img onClick={() => handleImageClick(product.image[0], -1)} src={product.image[0]} alt="" className="w-full object-contain" />
                   </div>
                   {product.color.map((url, index) =>
-                  <div key={index} className={`w-16 p-1 border-2 ${colorImageIndex === index+1 ? 'border-blue-600': ''} cursor-pointer`}>
-                    <img onClick={()=>handleImageClick(url, index)} src={url} alt="" className=" w-full object-contain" />
-                  </div>
+                    <div key={index} className={`w-16 p-1 border-2 ${colorImageIndex === index + 1 ? 'border-blue-600' : ''} cursor-pointer`}>
+                      <img onClick={() => handleImageClick(url, index)} src={url} alt="" className=" w-full object-contain" />
+                    </div>
                   )}
                 </div>
               </div>
@@ -209,11 +249,11 @@ export default function Product() {
                     <h1 className="text-lg my-2">134 Rattings & 9 Reviews</h1>
                   </div>
                   <div className="">
-                  <LineProgressBar rating={4.5} stareValue={5} />
-                  <LineProgressBar rating={3.9} stareValue={4} />
-                  <LineProgressBar rating={1.5} stareValue={3} />
-                  <LineProgressBar rating={1} stareValue={2} />
-                  <LineProgressBar rating={0.5} stareValue={1} />
+                    <LineProgressBar rating={4.5} stareValue={5} />
+                    <LineProgressBar rating={3.9} stareValue={4} />
+                    <LineProgressBar rating={1.5} stareValue={3} />
+                    <LineProgressBar rating={1} stareValue={2} />
+                    <LineProgressBar rating={0.5} stareValue={1} />
                   </div>
                 </div>
                 <div className="right border border-black w-1/2 flex justify-around">

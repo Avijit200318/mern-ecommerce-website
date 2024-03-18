@@ -13,6 +13,13 @@ const cartSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         default: 1
+    },
+    userRef: {
+        type: String,
+    },
+    productId: {
+        type: String,
+        require: true
     }
 },{timestamps: true});
 

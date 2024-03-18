@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
     admin: {
         type: String,
         default: "no"
+    },
+    cart: {
+        type: Array,
     }
 }, {timestamps: true});
 

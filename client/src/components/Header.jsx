@@ -28,7 +28,7 @@ export default function Header() {
 </button>
         </form>
         <div className="allBtns flex justify-between items-center gap-4 text-white font-semibold">
-          <Link title='Cart' to='/cart' className="text-2xl mx-4"><FaCartShopping /></Link>
+          <Link title='Cart' to="/cart" className="text-2xl mx-4"><FaCartShopping /></Link>
           {currentUser ? (
             <Link to='/profile'>
               <img src={currentUser.avatar} alt="" className='w-[2.5rem] h-[2.5rem] border-2 border-white object-cover rounded-full overflow-hidden bg-[#96EFFF]' />

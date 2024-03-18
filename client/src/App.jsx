@@ -23,13 +23,13 @@ const App = () => {
       <Route path='/sign-in' element={<SignIn />} />
       <Route path='/sign-up' element={<SignUp />} />
       <Route path='/contact' element={<Contact />} />
-      <Route path='/cart' element={<Cart />} />
       <Route path='/product/:productId' element={<Product />} />
       <Route element={<PrivateRoute />}>
+        <Route path='/cart' element={<Cart />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/create-product' element={<CreateProduct />} />
         <Route path='/userProducts' element={<UserProducts />} />
-        <Route path='/updateProduct/:productId' element={<UpdateProduct/>} />
+        <Route path='/updateProduct/:productId' element={<UpdateProduct />} />
       </Route>
     </Routes>
   </BrowserRouter>
