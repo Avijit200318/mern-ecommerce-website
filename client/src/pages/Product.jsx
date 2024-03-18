@@ -10,6 +10,9 @@ import { FiTag } from "react-icons/fi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import CircularProgressBar from '../components/CircularProgressBar';
 import LineProgressBar from '../components/LineProgressBar';
+import StarRating from '../components/StarRating';
+import { FaTruckFast } from "react-icons/fa6";
+
 
 export default function Product() {
   const { currentUser } = useSelector((state) => state.user);
@@ -118,7 +121,7 @@ export default function Product() {
           </div>
           <div className="right border border-black w-[60%] bg-white p-4">
             <h1 className="text-xl">{product.name}</h1>
-            <h3 className='text-md font-semibold mt-2 text-gray-400'><span className="bg-orange-400 text-white text-sm font-semibold rounded-sm px-1 mr-2">4.5&#9733;</span> 134 Rattings & 9 Reviews</h3>
+            <div className='text-sm font-semibold mt-2 text-gray-400 flex items-center gap-2'><StarRating stars={product.rating} /> 134 Ratings & 9 Reviews</div>
             <h1 className="text-3xl font-semibold mt-2">&#8377;{(product.price - (product.price * product.discount / 100)).toLocaleString('en-US')} <span className="line-through text-lg text-gray-400">&#8377;{product.price.toLocaleString('en-US')}</span> <span className="text-base font-semibold text-orange-500">{product.discount}% off</span></h1>
             <ul className='mt-4 list-none text-sm flex flex-col gap-2'>
               <li className="flex gap-2"><FiTag className='text-base text-orange-400' /> <span className='font-semibold'>Bank Offer</span> 10% instant discount on SBI Credit Card EMI Transactions, up to ₹1000 on orders of ₹5,000 and above T&C</li>
@@ -169,7 +172,7 @@ export default function Product() {
               <div className="two">
                 <h1 className="flex gap-2 items-center border-b-2 border-blue-500 py-2"><FaMapMarkerAlt /> {currentUser.address} <Link to='/profile' className="px-2 bg-blue-500 text-white rounded-md">Edit</Link></h1>
                 <h1 className="font-semibold">Delivery by {delivaryDate}</h1>
-                {product.delivaryFee ? <h1 className='text-sm font-semibold text-gray-600'>Delivary Charge 	&#8377;40</h1> : <h1 className='text-sm font-semibold text-gray-500'>FREE <span className='line-through'>&#8377;40</span></h1>}
+                {product.delivaryFee ? <div className='text-sm font-semibold text-gray-600 flex gap-1 items-center'>Delivary Charge 	&#8377;40 <FaTruckFast className='text-base' /></div> : <div className='text-sm font-semibold text-gray-500 flex gap-1 items-center'>FREE <span className='line-through'>&#8377;40</span><FaTruckFast className='text-base' /></div>}
               </div>
             </div>
             <div className="flex gap-8 my-4">
@@ -202,7 +205,7 @@ export default function Product() {
               <div className="flex">
                 <div className="left border border-black w-1/2 p-3 flex">
                   <div className="">
-                    <h1 className="text-3xl text-gray-800">4.5&#9733;</h1>
+                    <h1 className="text-3xl text-gray-800">{product.rating}&#9733;</h1>
                     <h1 className="text-lg my-2">134 Rattings & 9 Reviews</h1>
                   </div>
                   <div className="">
