@@ -44,6 +44,7 @@ const productSchema = new mongoose.Schema({
     },
     waranty: {
         type: String,
+        require: true,
     },
     delivaryFee: {
         type: Boolean,
@@ -54,7 +55,11 @@ const productSchema = new mongoose.Schema({
     },
     description: {
         type: String,
+        require: true,
     },
+    rating: {
+        type: Number,
+    }
 }, {timestamps: true});
 
 const Product = mongoose.model("Product", productSchema);

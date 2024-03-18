@@ -19,14 +19,10 @@ const userSchema = new mongoose.Schema({
         default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
     },
     address: String,
-    cart: [{
+    admin: {
         type: String,
-        ref: "Product",
-    }],
-    order: {
-        type: Array,
-        ref: "Product",
-    }
+        default: "no",
+    },
 }, {timestamps: true});
 
 const User = mongoose.model("User", userSchema);
