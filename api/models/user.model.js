@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema({
     address: String,
     admin: {
         type: String,
-        default: "no",
-    },
+        default: "no"
+    }
 }, {timestamps: true});
 
 const User = mongoose.model("User", userSchema);
