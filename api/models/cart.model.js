@@ -20,6 +20,12 @@ const cartSchema = new mongoose.Schema({
     productId: {
         type: String,
         require: true
+    },
+    discount: {
+        type: String,
+    },
+    delivaryFee: {
+        type: Boolean,
     }
 },{timestamps: true});
 

@@ -100,9 +100,11 @@ export default function Product() {
         body: JSON.stringify({
           name: product.name,
           price: product.price,
+          discount: product.discount,
           image: product.image[0],
           userRef: currentUser._id,
           productId: params.productId,
+          delivaryFee: product.delivaryFee,
         }),
       });
       const data = await res.json();
@@ -162,7 +164,7 @@ export default function Product() {
           <div className="right border border-black w-[60%] bg-white p-4">
             <h1 className="text-xl">{product.name}</h1>
             <div className='text-sm font-semibold mt-2 text-gray-400 flex items-center gap-2'><StarRating stars={product.rating} /> 134 Ratings & 9 Reviews</div>
-            <h1 className="text-3xl font-semibold mt-2">&#8377;{(product.price - (product.price * product.discount / 100)).toLocaleString('en-US')} <span className="line-through text-lg text-gray-400">&#8377;{product.price.toLocaleString('en-US')}</span> <span className="text-base font-semibold text-orange-500">{product.discount}% off</span></h1>
+            <h1 className="text-3xl font-semibold mt-2">&#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className="line-through text-lg text-gray-400">&#8377;{product.price.toLocaleString('en-US')}</span> <span className="text-base font-semibold text-orange-500">{product.discount}% off</span></h1>
             <ul className='mt-4 list-none text-sm flex flex-col gap-2'>
               <li className="flex gap-2"><FiTag className='text-base text-orange-400' /> <span className='font-semibold'>Bank Offer</span> 10% instant discount on SBI Credit Card EMI Transactions, up to ₹1000 on orders of ₹5,000 and above T&C</li>
               <li className="flex gap-2"><FiTag className='text-base text-orange-400' /> <span className='font-semibold'>Bank Offer</span> Get ₹25* instant discount for the 1st Flipkart Order using Flipkart UPI T&C</li>

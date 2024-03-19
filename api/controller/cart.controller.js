@@ -5,7 +5,7 @@ import { errorHandle } from "../utils/error.js";
 export const addToCart = async (req, res, next) => {
     try{
         const user = await userModel.findById(req.body.userRef);
-        if(user.cart.indexOf(req.body.productId !== -1)) {
+        if(user.cart.indexOf(req.body.productId) !== -1) {
             return next(errorHandle(401, "Item is already present in the cart"));
         }
         const cartItem = await cartModel.create(req.body);
