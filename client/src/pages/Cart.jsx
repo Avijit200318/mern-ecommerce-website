@@ -8,12 +8,11 @@ export default function Cart() {
   const { currentUser } = useSelector((state) => state.user);
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(cartData);
+  // console.log(cartData);
   const [deliveryDate, setDeliveryDate] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
   const [totalDelivaryCharge, setTotalDelivaryCharge] = useState(0);
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -78,10 +77,29 @@ export default function Cart() {
     return () => calculateTotals();
   }, [cartData]);
 
-const handleQuantityIncrease = (productPrice, productDiscount) => {
+const handleQuantityIncrease = async (productPrice, productDiscount,  productId) => {
   const discount = Math.round(productDiscount * productPrice /100);
   setTotalPrice(totalPrice + productPrice);
   setTotalDiscount(totalDiscount + discount);
+
+  try{
+    const res = await fetch(`/api/cart/increaseQuantity/${productId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+    if(data.success === false){
+      console.log(data.message);
+      return;
+    }
+    setCartData(data);
+    console.log("increased quantity");
+    // console.log(data);
+  }catch(error){
+    console.log(error);
+  }
 }
 
 const handleQuantityDecrease = (productPrice, productDiscount) => {
@@ -90,6 +108,21 @@ const handleQuantityDecrease = (productPrice, productDiscount) => {
   setTotalDiscount(totalDiscount - discount);
 }
 
+const handleCartItemDelete = async(cartItemId) => {
+  try{
+    const res = await fetch(`/api/cart/delete/${cartItemId}`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if(data.success === false){
+      console.log(data.message);
+      return;
+    }
+    setCartData((prev) => prev.filter((product) => product._id !== cartItemId));
+  }catch(error){
+    console.log(error.message);
+  }
+}
 
   return (
     <main>
@@ -102,31 +135,31 @@ const handleQuantityDecrease = (productPrice, productDiscount) => {
         <h1 className="text-2xl font-semibold my-4 pl-16">Your Cart is Empty...</h1>
       )}
       {(cartData && !loading) && (
-        <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6]">
-          <div className="left bg-white border border-black w-[60%] flex flex-col gap-4 p-4">
+        <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6] min-h-[90vh]">
+          <div className="left bg-white w-[60%] flex flex-col gap-4 p-4 shadow-xl">
             {cartData.map((product, index) =>
-              <div key={index} className="product p-4 flex gap-4 bg-white border border-black">
+              <div key={index} className="product p-4 flex gap-4 bg-white ">
                 <div className="">
-                  <div className="img w-36 h-36 border border-black">
+                  <div className="img w-36 h-36">
                     <img src={product.image} alt="" className="w-full h-full object-contain" />
                   </div>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex justify-center gap-2 items-center">
                     <button onClick={()=> handleQuantityDecrease(product.price, product.discount, product._id)} className='text-3xl'><CiSquareMinus /></button>
-                    <h1 id='quantity' className="border border-black w-8 text-center my-2">{quantity}</h1>
+                    <h1 id='quantity' className="border border-black w-8 text-center my-2">{product.quantity}</h1>
                     <button onClick={()=>handleQuantityIncrease(product.price, product.discount, product._id)} className='text-3xl'><CiSquarePlus /></button>
                   </div>
                 </div>
-                <div className="info py-2 px-4 border border-black">
+                <div className="info py-2 px-4">
                   <h1 className="text-xl">{product.name}</h1>
                   <h1 className="text-lg font-semibold"><span className='text-sm line-through text-gray-400 mr-2'>&#8377;{product.price}</span> &#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
                   <h1 className="text-sm">Delivery by {deliveryDate} | <span className="">{product.deliveryFee ? 'Delivery Charge ₹40' : 'FREE Delivery'}</span></h1>
 
-                  <button className='bg-red-600 text-white py-1 px-2 rounded mt-4'>REMOVE</button>
+                  <button onClick={()=> handleCartItemDelete(product._id)} className='bg-red-600 text-white py-1 px-2 rounded mt-4 transition-all duration-300 hover:bg-red-500'>REMOVE</button>
                 </div>
               </div>
             )}
           </div>
-          <div className="right py-4 w-[25%] border bg-white border-black flex flex-col fixed right-[14%]">
+          <div className="right py-4 w-[25%] bg-white flex flex-col fixed right-[14%] shadow-md">
             <h1 className="text-xl font-semibold border-b-2 py-3 text-center">Product Details</h1>
             <div className="p-4 text-lg flex flex-col gap-4 border">
               <div className="flex justify-between"><h1>Price ({cartData.length} itmes)</h1> <h1>&#8377;{(totalPrice.toLocaleString('en-US'))}</h1></div>

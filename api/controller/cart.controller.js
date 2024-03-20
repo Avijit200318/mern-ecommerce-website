@@ -32,7 +32,7 @@ export const getCartItems = async (req, res, next) => {
 
 export const deleteCartItem = async (req, res, next) => {
     const cartItem = await cartModel.findById(req.params.id);
-    if(!cartItem) return next(errorHandle(401, "Product not found"));
+    if(!cartItem) return next(errorHandle(401, "cart Item not found"));
     
     if(req.user.id !== cartItem.userRef) return next(errorHandle(401, "You can only delete your own cart items"));
 
@@ -43,6 +43,25 @@ export const deleteCartItem = async (req, res, next) => {
         user.cart.splice(user.cart.indexOf(cartItem.productId), 1);
         await user.save();
         return res.status(200).json("cart Item delete successfully");
+    }catch(error){
+        next(error);
+    }
+};
+
+export const increaseQuantity = async(req, res, next) => {
+    const cartItem = await cartModel.findById(req.params.id);
+    if(!cartItem) return next(errorHandle(401, "cart Item not found"));
+    
+    if(req.user.id !== cartItem.userRef) return next(errorHandle(401, "You can only update your own cart items"));
+
+    try{
+        const updateCartItem = await cartModel.findByIdAndUpdate(
+            req.params.id,
+            { $inc: { quantity: 1 } },
+            {new: true}
+        );
+        const updatedCartData = await cartModel.find({userRef: cartItem.userRef})
+        res.status(200).json(updatedCartData);
     }catch(error){
         next(error);
     }
