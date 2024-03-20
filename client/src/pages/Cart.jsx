@@ -61,8 +61,8 @@ export default function Cart() {
     const calculateTotals = () => {
       let sum = 0, discount = 0, delivary = 0;
       for (let i = 0; i < cartData.length; i++) {
-        sum += cartData[i].price;
-        discount += cartData[i].price * cartData[i].discount / 100;
+        sum += cartData[i].price * cartData[i].quantity;
+        discount += cartData[i].price * cartData[i].discount * cartData[i].quantity / 100;
         cartData[i].delivaryFee ? delivary += 40 : delivary += 0;
       }
       console.log("delivary is ",delivary);
@@ -102,10 +102,28 @@ const handleQuantityIncrease = async (productPrice, productDiscount,  productId)
   }
 }
 
-const handleQuantityDecrease = (productPrice, productDiscount) => {
+const handleQuantityDecrease = async(productPrice, productDiscount, productId) => {
   const discount = Math.round(productDiscount * productPrice /100);
   setTotalPrice(totalPrice - productPrice);
   setTotalDiscount(totalDiscount - discount);
+
+  try{
+    const res = await fetch(`/api/cart/decreaseQuantity/${productId}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+    if(data.success === false){
+      console.log(data.message);
+      return;
+    }
+    setCartData(data);
+    console.log("decrease quantity");
+  }catch(error){
+    console.log(error.message);
+  }
 }
 
 const handleCartItemDelete = async(cartItemId) => {
