@@ -8,11 +8,12 @@ export default function Cart() {
   const { currentUser } = useSelector((state) => state.user);
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(false);
-  // console.log(cartData);
+  console.log(cartData);
   const [deliveryDate, setDeliveryDate] = useState(null);
-  const [totalPrice, setTotalPrice]  = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
   const [totalDelivaryCharge, setTotalDelivaryCharge] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -57,28 +58,37 @@ export default function Cart() {
   }, []);
 
 
-useEffect(() => {
-  const calculateTotals = () => {
-    let sum = 0, discount = 0, delivary = 0;
-    for (let i = 0; i < cartData.length; i++) {
-      sum += cartData[i].price;
-      discount += cartData[i].price * cartData[i].discount / 100;
-      if(cartData[i].deliveryFee){
-        delivary += 1;
+  useEffect(() => {
+    const calculateTotals = () => {
+      let sum = 0, discount = 0, delivary = 0;
+      for (let i = 0; i < cartData.length; i++) {
+        sum += cartData[i].price;
+        discount += cartData[i].price * cartData[i].discount / 100;
+        cartData[i].delivaryFee ? delivary += 40 : delivary += 0;
       }
-    }
-    setTotalPrice(sum);
-    setTotalDiscount(Math.round(discount));
-    setTotalDelivaryCharge(delivary * 40);
-  };
+      console.log("delivary is ",delivary);
+      setTotalPrice(sum);
+      setTotalDiscount(Math.round(discount));
+      setTotalDelivaryCharge(delivary);
+    };
 
-  calculateTotals(); // Call the function initially to set totals
+    calculateTotals(); // Call the function initially to set totals
 
-  // Dependency array: Re-run the effect whenever cartData changes
-  return () => calculateTotals();
-}, [cartData]);
+    // Dependency array: Re-run the effect whenever cartData changes
+    return () => calculateTotals();
+  }, [cartData]);
 
+const handleQuantityIncrease = (productPrice, productDiscount) => {
+  const discount = Math.round(productDiscount * productPrice /100);
+  setTotalPrice(totalPrice + productPrice);
+  setTotalDiscount(totalDiscount + discount);
+}
 
+const handleQuantityDecrease = (productPrice, productDiscount) => {
+  const discount = Math.round(productDiscount * productPrice /100);
+  setTotalPrice(totalPrice - productPrice);
+  setTotalDiscount(totalDiscount - discount);
+}
 
 
   return (
@@ -98,9 +108,9 @@ useEffect(() => {
                     <img src={product.image} alt="" className="w-full h-full object-contain" />
                   </div>
                   <div className="flex gap-2 items-center">
-                    <button className='text-3xl'><CiSquareMinus /></button>
-                    <h1 className="border border-black w-8 text-center my-2">1</h1>
-                    <button className='text-3xl'><CiSquarePlus /></button>
+                    <button onClick={()=> handleQuantityDecrease(product.price, product.discount, product._id)} className='text-3xl'><CiSquareMinus /></button>
+                    <h1 id='quantity' className="border border-black w-8 text-center my-2">{quantity}</h1>
+                    <button onClick={()=>handleQuantityIncrease(product.price, product.discount, product._id)} className='text-3xl'><CiSquarePlus /></button>
                   </div>
                 </div>
                 <div className="info py-2 px-4 border border-black">
@@ -118,9 +128,9 @@ useEffect(() => {
             <div className="p-4 text-lg flex flex-col gap-4 border">
               <div className="flex justify-between"><h1>Price ({cartData.length} itmes)</h1> <h1>&#8377;{(totalPrice.toLocaleString('en-US'))}</h1></div>
               <div className="flex justify-between"><h1>Discount</h1> <h1 className='text-orange-400 font-semibold'>- &#8377;{(totalDiscount).toLocaleString('en-US')}</h1></div>
-              <div className="flex justify-between"><h1>Delivery Charge</h1> <h1>{totalDelivaryCharge === 0 ? <span className='uppercase text-orange-400'>free</span> : <span>{totalDelivaryCharge}</span>}</h1></div>
+              <div className="flex justify-between"><h1>Delivery Charge</h1> <h1>{totalDelivaryCharge === 0 ? <span className='uppercase text-orange-400'>free</span> : <span className=''>&#8377;{totalDelivaryCharge}</span>}</h1></div>
             </div>
-            <h1 className="p-4 text-lg font-semibold border-b-2 flex justify-between"> <h1>Totoal Amount</h1> <h1>&#8377;{(totalPrice - totalDiscount).toLocaleString('en-US')}</h1></h1>
+            <div className="p-4 text-lg font-semibold border-b-2 flex justify-between"> <h1>Totoal Amount</h1> <h1>&#8377;{(totalPrice - totalDiscount + totalDelivaryCharge).toLocaleString('en-US')}</h1></div>
             <div className="p-4 text-base font-semibold text-orange-400 flex justify-between"><h1>Total amount you save</h1> <h1>&#8377;{(totalDiscount).toLocaleString('en-US')}</h1></div>
             <button className="w-[80%] mx-auto mt-2 py-2 text-base font-semibold text-white bg-orange-400 transition-all duration-300 hover:bg-orange-500">Place Order</button>
           </div>
