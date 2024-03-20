@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useSyncExternalStore } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { updateUserStart, updateUserFailure, updateUserSuccess } from '../redux/user/userSlice';
 
 // icons
 import { IoCart } from "react-icons/io5";
@@ -29,7 +30,9 @@ export default function Product() {
   const [imageIndex, setImageIndex] = useState(0);
   const [colorImageIndex, setColorImageIndex] = useState(0);
   const [cartItemError, setCartItemError] = useState(null);
+  const [cartBtnLoading, setCartBtnLoading] = useState(false);
 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -92,6 +95,8 @@ export default function Product() {
 
   const handleaddToCart = async () => {
     try {
+      dispatch(updateUserStart());
+      setCartBtnLoading(true);
       const res = await fetch("/api/cart/add", {
         method: "POST",
         headers: {
@@ -110,11 +115,18 @@ export default function Product() {
       const data = await res.json();
       if (data.success === false) {
         setCartItemError(data.message);
+        setCartBtnLoading(false);
+        dispatch(updateUserFailure(data.message));
         return;
       }
       console.log("item is added to the cart");
+      // console.log(data);
+      dispatch(updateUserSuccess(data));
+      setCartBtnLoading(false);
     } catch (error) {
       setCartItemError(error);
+      setCartBtnLoading(false);
+      dispatch(updateUserFailure(error.message));
     }
   };
 
@@ -151,7 +163,7 @@ export default function Product() {
                   <img src={showImage} alt="" className="w-full h-full object-contain" />
                 </div>
                 <div className="btn w-full flex justify-between my-4">
-                  <button onClick={() => handleaddToCart()} className='flex justify-center items-center font-semibold uppercase gap-4 bg-[#ff9f00] text-white py-3 px-4 w-48'><IoCart className='text-xl' /> Add to Cart</button>
+                  <button onClick={() => handleaddToCart()} className='flex justify-center items-center font-semibold uppercase gap-4 bg-[#ff9f00] text-white py-3 px-4 w-48'><IoCart className='text-xl' />{cartBtnLoading ? 'Added...' : 'Add to Cart'}</button>
                   <button className="flex justify-center items-center font-semibold uppercase gap-4 bg-[#fb641b] text-white py-3 px-4 w-48"><IoIosGift /> Buy Now</button>
                 </div>
                 {cartItemError && (

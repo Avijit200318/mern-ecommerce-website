@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { updateUserSuccess, updateUserFailure, updateUserStart } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 import { CiSquareMinus } from "react-icons/ci";
 import { CiSquarePlus } from "react-icons/ci";
@@ -14,6 +16,8 @@ export default function Cart() {
   const [totalDiscount, setTotalDiscount] = useState(0);
   const [totalDelivaryCharge, setTotalDelivaryCharge] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -129,17 +133,22 @@ const handleQuantityDecrease = async(productPrice, productDiscount, productId) =
 
 const handleCartItemDelete = async(cartItemId) => {
   try{
+    dispatch(updateUserStart());
     const res = await fetch(`/api/cart/delete/${cartItemId}`, {
       method: 'DELETE',
     });
     const data = await res.json();
     if(data.success === false){
       console.log(data.message);
+      dispatch(updateUserFailure(data.message));
       return;
     }
+    // console.log("this is the data ",data);
+    dispatch(updateUserSuccess(data));
     setCartData((prev) => prev.filter((product) => product._id !== cartItemId));
   }catch(error){
     console.log(error.message);
+    dispatch(updateUserFailure(error.message));
   }
 };
 

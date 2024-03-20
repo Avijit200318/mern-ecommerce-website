@@ -11,7 +11,9 @@ export const addToCart = async (req, res, next) => {
         const cartItem = await cartModel.create(req.body);
         user.cart.push(req.body.productId);
         await user.save();
-        return res.status(200).json(cartItem);
+        // return res.status(200).json(cartItem);
+        // at first I saw the created item data. but to initalize cart I send user updated data.
+        return res.status(200).json(user);
     }catch(error){
         next(error);
     }
@@ -42,7 +44,8 @@ export const deleteCartItem = async (req, res, next) => {
         await cartModel.findByIdAndDelete(req.params.id);
         user.cart.splice(user.cart.indexOf(cartItem.productId), 1);
         await user.save();
-        return res.status(200).json("cart Item delete successfully");
+        // return res.status(200).json("cart Item delete successfully");
+        return res.status(200).json(user);
     }catch(error){
         next(error);
     }
