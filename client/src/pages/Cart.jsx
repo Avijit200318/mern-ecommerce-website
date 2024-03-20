@@ -98,6 +98,9 @@ const handleQuantityDecrease = (productPrice, productDiscount) => {
           <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
         </div>
       )}
+      {cartData.length === 0 && (
+        <h1 className="text-2xl font-semibold my-4 pl-16">Your Cart is Empty...</h1>
+      )}
       {(cartData && !loading) && (
         <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6]">
           <div className="left bg-white border border-black w-[60%] flex flex-col gap-4 p-4">
