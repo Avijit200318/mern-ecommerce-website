@@ -65,4 +65,31 @@ export const increaseQuantity = async(req, res, next) => {
     }catch(error){
         next(error);
     }
+};
+
+export const decreaseQuantity = async(req, res, next) => {
+    const cartItem = await cartModel.findById(req.params.id);
+    if(!cartItem) return next(errorHandle(401, "cart Item not found"));
+    
+    if(req.user.id !== cartItem.userRef) return next(errorHandle(401, "You can only update your own cart items"));
+
+    try{
+        if(cartItem.quantity === 1){
+            const user = await userModel.findById(cartItem.userRef);
+            user.cart.splice(user.cart.indexOf(cartItem.productId), 1);
+            await user.save();
+            const updateCartItem = await cartModel.findByIdAndDelete(req.params.id);
+
+        }else{
+            const updateCartItem = await cartModel.findByIdAndUpdate(
+                req.params.id,
+                { $inc: { quantity: -1 } },
+                {new: true}
+            );
+        };
+        const updatedCartData = await cartModel.find({userRef: cartItem.userRef})
+        res.status(200).json(updatedCartData);
+    }catch(error){
+        next(error);
+    }
 }
