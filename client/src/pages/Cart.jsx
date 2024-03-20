@@ -13,6 +13,7 @@ export default function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
   const [totalDelivaryCharge, setTotalDelivaryCharge] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -140,7 +141,21 @@ const handleCartItemDelete = async(cartItemId) => {
   }catch(error){
     console.log(error.message);
   }
-}
+};
+
+// useEffect for the right side box position fixed after some scroll
+useEffect(() => {
+  const handleScroll = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    setIsScrolled(scrollTop > 40); // 1rem = 16px
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, []);
 
   return (
     <main>
@@ -177,7 +192,7 @@ const handleCartItemDelete = async(cartItemId) => {
               </div>
             )}
           </div>
-          <div className="right py-4 w-[25%] bg-white flex flex-col fixed right-[14%] shadow-md">
+          <div className={`right py-4 w-[25%] bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled? 'top-[15px] fixed right-[14.5%]': ''}`}>
             <h1 className="text-xl font-semibold border-b-2 py-3 text-center">Product Details</h1>
             <div className="p-4 text-lg flex flex-col gap-4 border">
               <div className="flex justify-between"><h1>Price ({cartData.length} itmes)</h1> <h1>&#8377;{(totalPrice.toLocaleString('en-US'))}</h1></div>
