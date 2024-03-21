@@ -31,7 +31,7 @@ export default function Header() {
         </form>
         <div className="allBtns flex justify-between items-center gap-4 text-white font-semibold">
           <Link title='Cart' to="/cart" className="text-2xl mx-4 relative"><FaCartShopping />
-          {currentUser.cart.length > 0 && <span className='bg-red-600 w-[15px] h-[15px] rounded-full absolute top-[-4px] right-[-4px] flex items-center justify-center text-[0.7rem]'>{currentUser.cart.length}</span>}
+          {currentUser && currentUser.cart.length > 0 && <span className='bg-red-600 w-[15px] h-[15px] rounded-full absolute top-[-4px] right-[-4px] flex items-center justify-center text-[0.7rem]'>{currentUser.cart.length}</span>}
           </Link>
           {currentUser ? (
             <Link to='/profile'>

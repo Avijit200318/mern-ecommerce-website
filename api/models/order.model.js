@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
         type: Number,
     },
     rating: {
-        type: Number,
+        type: String,
     },
     quantity: {
         type: Number,
@@ -24,6 +24,9 @@ const orderSchema = new mongoose.Schema({
         default: 'pending'
     },
     address: {
+        type: String,
+    },
+    delivaryDate: {
         type: String,
     }
 },{timestamps: true});
