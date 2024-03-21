@@ -13,6 +13,7 @@ import CreateProduct from './pages/CreateProduct';
 import Product from './pages/Product';
 import UserProducts from './pages/UserProducts';
 import UpdateProduct from './pages/UpdateProduct';
+import Order from './pages/Order';
 
 const App = () => {
   return <BrowserRouter >
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/create-product' element={<CreateProduct />} />
         <Route path='/userProducts' element={<UserProducts />} />
         <Route path='/updateProduct/:productId' element={<UpdateProduct />} />
+        <Route path='/order/:productId' element={<Order />} />
       </Route>
     </Routes>
   </BrowserRouter>

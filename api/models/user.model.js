@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema({
     },
     cart: {
         type: Array,
+    },
+    order: {
+        type: Array,
+    },
+    contact: {
+        type: Number,
     }
 }, {timestamps: true});
 

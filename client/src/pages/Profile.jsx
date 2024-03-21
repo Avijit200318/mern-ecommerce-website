@@ -139,6 +139,7 @@ export default function Profile() {
           <input type="text" placeholder='username' id='username' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.username} onChange={handleChange} />
           <input type="email" placeholder='email' id='email' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.email} onChange={handleChange} />
           <input type="password" placeholder='password' id='password' className="px-4 py-3 rounded-lg w-full border border-black" onChange={handleChange} />
+          <input type="number" placeholder='Contact' id='contact' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.contact} onChange={handleChange} />
           <textarea cols="30" placeholder='Address' id='address' className="w-full rounded-lg p-4 resize-none border border-black" defaultValue={currentUser.address} onChange={handleChange}></textarea>
           <button disabled={loading} className="w-full uppercase bg-[#0d6efd] p-3 font-semibold rounded-lg text-white disabled:bg-blue-500 transition-all duration-300 hover:bg-blue-700">{loading ? 'Updating...' : 'Update'}</button>
         </form>
