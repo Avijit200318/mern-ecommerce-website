@@ -162,7 +162,7 @@ export default function Product() {
                 </div>
                 <div className="btn w-full flex justify-between my-4">
                   <button disabled={cartBtnLoading} onClick={() => handleaddToCart()} className='flex justify-center items-center font-semibold uppercase gap-4 bg-[#ff9f00] text-white py-3 px-4 w-48 disabled:bg-[#e8b35e]'><IoCart className='text-xl' />{cartBtnLoading ? 'Added...' : 'Add to Cart'}</button>
-                  <Link to={`/order/${product._id}`}>
+                  <Link to={`/orderCon/${product._id}`}>
                     <button className="flex justify-center items-center font-semibold uppercase gap-4 bg-[#fb641b] text-white py-3 px-4 w-48"><IoIosGift /> Buy Now</button>
                   </Link>
                 </div>

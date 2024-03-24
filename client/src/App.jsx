@@ -14,6 +14,8 @@ import Product from './pages/Product';
 import UserProducts from './pages/UserProducts';
 import UpdateProduct from './pages/UpdateProduct';
 import Order from './pages/Order';
+import OrderConform from './pages/OrderConform';
+import OrderDetails from './pages/OrderDetails';
 
 const App = () => {
   return <BrowserRouter >
@@ -31,7 +33,9 @@ const App = () => {
         <Route path='/create-product' element={<CreateProduct />} />
         <Route path='/userProducts' element={<UserProducts />} />
         <Route path='/updateProduct/:productId' element={<UpdateProduct />} />
-        <Route path='/order/:productId' element={<Order />} />
+        <Route path='/order' element={<Order />} />
+        <Route path='/orderCon/:productId' element={<OrderConform />} />
+        <Route path='/orderDetails/:OrderId' element={<OrderDetails />} />
       </Route>
     </Routes>
   </BrowserRouter>

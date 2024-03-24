@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../public/images/logo.png";
 import { IoSearch } from "react-icons/io5";
 import { FaCartShopping } from "react-icons/fa6";
+import { BsBoxSeamFill } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 
 export default function Header() {
@@ -30,8 +31,9 @@ export default function Header() {
           </button>
         </form>
         <div className="allBtns flex justify-between items-center gap-4 text-white font-semibold">
+          <Link title='Order' to="/order" className="text-2xl  relative"><BsBoxSeamFill /></Link>
           <Link title='Cart' to="/cart" className="text-2xl mx-4 relative"><FaCartShopping />
-          {currentUser && currentUser.cart.length > 0 && <span className='bg-red-600 w-[15px] h-[15px] rounded-full absolute top-[-4px] right-[-4px] flex items-center justify-center text-[0.7rem]'>{currentUser.cart.length}</span>}
+            {currentUser && currentUser.cart.length > 0 && <span className='bg-red-600 w-[15px] h-[15px] rounded-full absolute top-[-4px] right-[-4px] flex items-center justify-center text-[0.7rem]'>{currentUser.cart.length}</span>}
           </Link>
           {currentUser ? (
             <Link to='/profile'>

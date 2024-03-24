@@ -5,6 +5,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    buyerName: {
+        type: String,
+        require: true
+    },
     price: {
         type: Number,
         require: true
@@ -13,11 +17,15 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    image: {
+        type: String,
+    },
     rating: {
         type: String,
     },
     quantity: {
         type: Number,
+        default: 1,
         require: true
     },
     paymentMethod: {
@@ -37,6 +45,15 @@ const orderSchema = new mongoose.Schema({
         type: String,
     },
     productId: {
+        type: String,
+    },
+    pincode: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
+    state: {
         type: String,
     }
 },{timestamps: true});
