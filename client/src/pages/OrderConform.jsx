@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Payment from '../components/Payment';
 
 export default function OrderConform() {
   const [productData, setProductData] = useState(null);
@@ -17,7 +18,7 @@ export default function OrderConform() {
     pincode: '',
     state: '',
     city: '',
-    paymentMethod: '',
+    paymentMethod: 'COD',
     address: currentUser.address,
     contact: currentUser.contact,
     delivaryDate: '',
@@ -170,6 +171,10 @@ export default function OrderConform() {
             </div>
             <div className="">
               <h1 className="text-2xl text-center border-t-2 border-b-2 border-gray-500 font-semibold py-2 my-4">Payment Method</h1>
+              <div className="w-full flex flex-col gap-4 items-center my-8">
+                <h1 className='bg-yellow-500 px-4 py-3 text-center text-lg font-semibold w-[60%]'>Cash On Delivary</h1>
+                <Payment price={Math.round((productData.price - (productData.price * productData.discount / 100)) + deliveryCharge)} name={productData.name} handleOrderSubmit={handleOrderSubmit} />
+              </div>
             </div>
           </div>
           <div className={`right py-4 w-[25%] bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled ? 'top-[15px] fixed right-[14.5%]' : ''}`}>

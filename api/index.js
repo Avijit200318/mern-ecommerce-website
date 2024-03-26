@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import productRouter from "./routes/product.route.js";
 import cartRouter from "./routes/cart.route.js";
 import orderRouter from "./routes/order.route.js";
+import paymentRouter from "./routes/phonePay.js";
+
 
 dotenv.config();
 
@@ -31,6 +33,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/payment", paymentRouter);
 
 
 // error handle middelware
