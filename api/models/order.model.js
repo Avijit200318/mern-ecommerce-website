@@ -28,7 +28,7 @@ const orderSchema = new mongoose.Schema({
         default: 1,
         require: true
     },
-    paymentMethod: {
+    paymentStatus: {
         type: String,
     },
     status: {
@@ -55,6 +55,10 @@ const orderSchema = new mongoose.Schema({
     },
     state: {
         type: String,
+    },
+    step: {
+        type: Number,
+        default: 1
     }
 },{timestamps: true});
 

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Payment from '../components/Payment';
+import CardImg from '../../public/images/card.png';
 
 export default function OrderConform() {
   const [productData, setProductData] = useState(null);
@@ -18,7 +19,7 @@ export default function OrderConform() {
     pincode: '',
     state: '',
     city: '',
-    paymentMethod: 'COD',
+    paymentStatus: 'COD',
     address: currentUser.address,
     contact: currentUser.contact,
     delivaryDate: '',
@@ -130,6 +131,47 @@ export default function OrderConform() {
     };
   }, []);
 
+  const handleCardPayOrder = async () => {
+    if (orderData.buyerName === '' || orderData.pincode === '' || orderData.state === '' || orderData.city === '') {
+      setError("Invalid user details");
+      return;
+    }
+    try {
+      setOrderLoading(true);
+      setError(null);
+      const res = await fetch("/api/order/add", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...orderData,
+          price: Math.round(productData.price - Math.round(productData.price * productData.discount / 100)) + deliveryCharge,
+          discount: productData.discount,
+          name: productData.name,
+          userRef: currentUser._id,
+          productId: params.productId,
+          image: productData.image[0],
+        })
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setError(data.message);
+        setOrderLoading(false);
+        return;
+      }
+      console.log("order is added");
+      setOrderLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setOrderLoading(false);
+    }
+  };
+
+  const handlePaymentChange = (e) => {
+    setOrederData({...orderData, paymentStatus: e.target.id})
+  }
+
   return (
     <main>
       {loading && (
@@ -142,7 +184,7 @@ export default function OrderConform() {
           <div className="left bg-white w-[60%] flex flex-col gap-4 py-6 px-4 shadow-xl">
             <h1 className="text-center text-2xl font-semibold">Check Details</h1>
             <div className="box flex justify-center">
-              <form className='flex flex-col gap-2 border-black border-2 p-8 w-[70%] rounded-lg'>
+              <form className='flex flex-col gap-2 border-gray-400 border-2 p-8 w-[70%] rounded-lg'>
                 <div className="flex flex-col gap-2">
                   <label className='text-lg font-semibold'>Shipping Address</label>
                   <textarea name="" id="address" cols="30" placeholder='Address' defaultValue={orderData.address} onChange={handleChange} required className='border border-black rounded-lg px-4 py-2' autoComplete='off'></textarea>
@@ -171,9 +213,25 @@ export default function OrderConform() {
             </div>
             <div className="">
               <h1 className="text-2xl text-center border-t-2 border-b-2 border-gray-500 font-semibold py-2 my-4">Payment Method</h1>
-              <div className="w-full flex flex-col gap-4 items-center my-8">
-                <h1 className='bg-yellow-500 px-4 py-3 text-center text-lg font-semibold w-[60%]'>Cash On Delivary</h1>
-                <Payment price={Math.round((productData.price - (productData.price * productData.discount / 100)) + deliveryCharge)} name={productData.name} handleOrderSubmit={handleOrderSubmit} />
+              <div className="w-[70%] mx-auto flex flex-col gap-4 items-center my-8 border border-gray-600 py-6 rounded-lg">
+                <h3 className="w-[60%] px-2 font-semibold">Select your payment method*</h3>
+                <div className='border border-gray-500 px-4 py-3 text-lg font-semibold w-[60%] rounded-md'>
+                  <label htmlFor='COD' className="w-full flex gap-4">
+                    <input onChange={handlePaymentChange} type="radio" checked={orderData.paymentStatus === 'COD'} name="method" id='COD' value="cod" />
+                    <span>Cash On Delivary</span>
+                  </label>
+                </div>
+                <div className='border border-gray-500 px-4 py-3 text-lg font-semibold w-[60%] rounded-md flex'>
+                  <label htmlFor='complete' className="w-full flex gap-4">
+                    <input onChange={handlePaymentChange} type="radio" checked={orderData.paymentStatus === 'complete'} name="method" id='complete' value="cod" />
+                    <span>Credit Card / Debit Card</span>
+                  </label>
+                  <img src={CardImg} alt="" className="h-6" />
+                </div>
+                
+                {orderData.paymentStatus === 'complete' && (
+                  <Payment price={Math.round((productData.price - Math.round(productData.price * productData.discount / 100)) + deliveryCharge)} name={productData.name} handleCardPayOrder={handleCardPayOrder} orderData={orderData} />
+                )}
               </div>
             </div>
           </div>
@@ -187,7 +245,7 @@ export default function OrderConform() {
                 {productData.delivaryFee ? <h1>&#8377;40</h1> : <h1 className='text-orange-400 uppercase'>free</h1>}
               </div>
             </div>
-            <div className="p-4 text-lg font-semibold border-b-2 flex justify-between"> <h1>Totoal Amount</h1> <h1>&#8377;{Math.round((productData.price - (productData.price * productData.discount / 100)) + deliveryCharge).toLocaleString('en-US')}</h1></div>
+            <div className="p-4 text-lg font-semibold border-b-2 flex justify-between"> <h1>Totoal Amount</h1> <h1>&#8377;{Math.round((productData.price - Math.round(productData.price * productData.discount / 100)) + deliveryCharge).toLocaleString('en-US')}</h1></div>
             <div className="p-4 text-base font-semibold text-orange-400 flex justify-between"><h1>Total amount you save</h1> <h1>&#8377;{Math.round(productData.price * productData.discount / 100).toLocaleString('en-US')}</h1></div>
             <button onClick={handleOrderSubmit} className="w-[80%] mx-auto mt-2 py-2 text-base font-semibold text-white bg-orange-400 transition-all duration-300 hover:bg-orange-500">{orderLoading ? 'loading...' : 'Place Order'}</button>
             {error && <p className='text-red-600 text-md font-semibold text-center relative top-1'>{error}</p>}

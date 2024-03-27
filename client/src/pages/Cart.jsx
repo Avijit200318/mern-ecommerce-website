@@ -5,12 +5,13 @@ import { useDispatch } from 'react-redux';
 
 import { CiSquareMinus } from "react-icons/ci";
 import { CiSquarePlus } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
   const { currentUser } = useSelector((state) => state.user);
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(false);
-  // console.log(cartData);
+  console.log(cartData);
   const [deliveryDate, setDeliveryDate] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
@@ -197,9 +198,11 @@ export default function Cart() {
             {cartData.map((product, index) =>
               <div key={index} className="product p-4 flex gap-4 bg-white ">
                 <div className="">
+                  <Link to={`/product/${product.productId}`}>
                   <div className="img w-36 h-36">
                     <img src={product.image} alt="" className="w-full h-full object-contain" />
                   </div>
+                  </Link>
                   <div className="flex justify-center gap-2 items-center">
                     <button onClick={() => handleQuantityDecrease(product.price, product.discount, product._id, product.quantity)} className='text-3xl'><CiSquareMinus /></button>
                     <h1 id='quantity' className="border border-black w-8 text-center my-2">{product.quantity}</h1>
@@ -208,9 +211,11 @@ export default function Cart() {
                   {decreaseError && <p className='absolute text-red-600 font-semibold'>{decreaseError}</p>}
                 </div>
                 <div className="info py-2 px-4">
+                  <Link to={`/product/${product.productId}`}>
                   <h1 className="text-xl">{product.name}</h1>
                   <h1 className="text-lg font-semibold"><span className='text-sm line-through text-gray-400 mr-2'>&#8377;{product.price}</span> &#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
                   <h1 className="text-sm">Delivery by {deliveryDate} | <span className="">{product.deliveryFee ? 'Delivery Charge ₹40' : 'FREE Delivery'}</span></h1>
+                  </Link>
 
                   <button onClick={() => handleCartItemDelete(product._id)} className='bg-red-600 text-white py-1 px-2 rounded mt-4 transition-all duration-300 hover:bg-red-500'>REMOVE</button>
                 </div>
