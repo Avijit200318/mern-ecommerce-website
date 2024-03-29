@@ -8,7 +8,7 @@ export const createOrder = async (req, res, next) => {
         const user = await userModel.findById(req.body.userRef);
         user.order.push(orderItem._id);
         await user.save();
-        return res.status(200).json(orderItem);
+        return res.status(200).json(user);
     }catch(error){
         next(error);
     }

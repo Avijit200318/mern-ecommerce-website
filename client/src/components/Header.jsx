@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   // console.log("current user is ", currentUser);
-  // console.log(cartData);
 
   return (
     <header className=''>
@@ -30,7 +29,9 @@ export default function Header() {
           </button>
         </form>
         <div className="allBtns flex justify-between items-center gap-4 text-white font-semibold">
-          <Link title='Order' to="/order" className="text-2xl  relative"><BsBoxSeamFill /></Link>
+          <Link title='Order' to="/order" className="text-2xl  relative"><BsBoxSeamFill />
+          {currentUser && currentUser.order.length > 0 && <span className='bg-red-600 w-[15px] h-[15px] rounded-full absolute top-[-1px] right-[-8px] flex items-center justify-center text-[0.7rem]'>{currentUser.order.length}</span>}
+          </Link>
           <Link title='Cart' to="/cart" className="text-2xl mx-4 relative"><FaCartShopping />
             {currentUser && currentUser.cart.length > 0 && <span className='bg-red-600 w-[15px] h-[15px] rounded-full absolute top-[-4px] right-[-4px] flex items-center justify-center text-[0.7rem]'>{currentUser.cart.length}</span>}
           </Link>

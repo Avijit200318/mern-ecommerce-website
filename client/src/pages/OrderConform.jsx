@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Payment from '../components/Payment';
 import CardImg from '../../public/images/card.png';
-// import { updateUserSuccess, updateUserFailure, updateUserStart } from '../redux/user/userSlice';
-// import { useDispatch } from 'react-redux';
+import { updateUserSuccess, updateUserFailure, updateUserStart } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function OrderConform() {
   const [productData, setProductData] = useState(null);
@@ -16,6 +16,7 @@ export default function OrderConform() {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   // console.log(currentUser);
+  const dispatch = useDispatch();
   const [orderData, setOrederData] = useState({
     buyerName: '',
     pincode: '',
@@ -88,6 +89,7 @@ export default function OrderConform() {
       return;
     }
     try {
+      dispatch(updateUserStart());
       setOrderLoading(true);
       setError(null);
       const res = await fetch("/api/order/add", {
@@ -109,13 +111,16 @@ export default function OrderConform() {
       if (data.success === false) {
         setError(data.message);
         setOrderLoading(false);
+        dispatch(updateUserFailure(data.message));
         return;
       }
-      console.log("order is added");
-      navigate(`/orderDetails/${data._id}`);
+      // console.log("data is - ", data);
+      dispatch(updateUserSuccess(data));
+      navigate(`/orderDetails/${data.order[data.order.length -1]}`);
       setOrderLoading(false);
     } catch (error) {
       setError(error.message);
+      dispatch(updateUserFailure(error.message));
       setOrderLoading(false);
     }
   }
@@ -139,6 +144,7 @@ export default function OrderConform() {
       return;
     }
     try {
+      dispatch(updateUserStart());
       setOrderLoading(true);
       setError(null);
       const res = await fetch("/api/order/add", {
@@ -163,6 +169,7 @@ export default function OrderConform() {
         return;
       }
       console.log("order is added");
+      dispatch(updateUserSuccess(data));
       setOrderLoading(false);
     } catch (error) {
       setError(error.message);

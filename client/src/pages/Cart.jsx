@@ -11,7 +11,7 @@ export default function Cart() {
   const { currentUser } = useSelector((state) => state.user);
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(cartData);
+  // console.log(cartData);
   const [deliveryDate, setDeliveryDate] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { updateUserSuccess, updateUserFailure, updateUserStart } from '../redux/user/userSlice';
-// import { useDispatch } from 'react-redux';
+import { updateUserSuccess, updateUserFailure, updateUserStart } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Order() {
 
@@ -11,7 +11,7 @@ export default function Order() {
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchOrderData = async () => {
@@ -37,18 +37,21 @@ export default function Order() {
 
   const handleOrderItemDelete = async(orderId) => {
     try{
-
+      dispatch(updateUserStart());
       const res = await fetch(`/api/order/removeOrder/${orderId}`, {
         method: 'DELETE',
       });
       const data = await res.json();
       if(data.success === false){
         console.log(data.message);
+        dispatch(updateUserFailure(data.message));
         return;
       }
+      dispatch(updateUserSuccess(data));
       setOrders((prev)=> prev.filter((order)=> order._id !== orderId));
     }catch(error){
       console.log(error.message);
+      dispatch(updateUserFailure(error.message));
     }
   }
 
