@@ -21,7 +21,6 @@ export default function Header() {
           </Link>
         </div>
         <div className="links flex justify-center items-center gap-8 text-white font-semibold w-[20%]">
-          <Link to=''>Offers</Link>
           <Link to='/about' className='text-lg'>About</Link>
           <Link to='/contact' className='text-lg'>Contact</Link>
         </div>

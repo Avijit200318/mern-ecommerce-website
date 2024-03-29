@@ -54,4 +54,29 @@ export const decStep = async(req, res, next) => {
     }catch(error){
         next(error);
     }
+};
+
+export const cancleOrder = async(req, res, next) => {
+    const order = await orderModel.findById(req.params.id);
+    if(!order) return next(errorHandle(401, "Order not found"));
+    try{
+        const updateOrder = await orderModel.findByIdAndUpdate(
+            req.params.id,
+            {step: -1, status: "cancle"},
+            {new: true}
+        );
+        return res.status(200).json(updateOrder);
+    }catch(error){
+        next(error);
+    }
+}
+
+export const getUserOrders= async (req, res, next) => {
+    if(req.user.id !== req.params.id) return next(errorHandle(401, "You can only check your own orders"));
+    try{
+        const allOrders = await orderModel.find({userRef: req.params.id});
+        return res.status(200).json(allOrders);
+    }catch(error){
+        next(error);
+    }
 }

@@ -214,7 +214,7 @@ export default function Cart() {
                   <Link to={`/product/${product.productId}`}>
                   <h1 className="text-xl">{product.name}</h1>
                   <h1 className="text-lg font-semibold"><span className='text-sm line-through text-gray-400 mr-2'>&#8377;{product.price}</span> &#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
-                  <h1 className="text-sm">Delivery by {deliveryDate} | <span className="">{product.deliveryFee ? 'Delivery Charge ₹40' : 'FREE Delivery'}</span></h1>
+                  <h1 className="text-sm">Delivery by {deliveryDate} | <span className="">{product.delivaryFee ? 'Delivery Charge ₹40' : 'FREE Delivery'}</span></h1>
                   </Link>
 
                   <button onClick={() => handleCartItemDelete(product._id)} className='bg-red-600 text-white py-1 px-2 rounded mt-4 transition-all duration-300 hover:bg-red-500'>REMOVE</button>
