@@ -79,4 +79,19 @@ export const getUserOrders= async (req, res, next) => {
     }catch(error){
         next(error);
     }
-}
+};
+
+export const removeOrder = async(req, res, next) => {
+    const order = await orderModel.findById(req.params.id);
+    if(!order) return next(errorHandle(401, "Order not found"));
+    const user = await userModel.findById(order.userRef);
+    if(!user) return next(errorHandle(401, "User not found"));
+    try{
+        await orderModel.findByIdAndDelete(req.params.id);
+        user.order.splice(user.order.indexOf(order._id), 1);
+        await user.save();
+        return res.status(200).json(user);
+    }catch(error){
+        next(error);
+    }
+};

@@ -101,7 +101,7 @@ export default function OrderDetails() {
       hour: 'numeric',
       minute: 'numeric',
       second: 'numeric',
-      timeZone: 'UTC'
+      timeZone: 'Asia/Kolkata'
     };
     setOrderDate(new Intl.DateTimeFormat('en-US', options).format(timestamp));
   };
@@ -114,7 +114,7 @@ export default function OrderDetails() {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-      timeZone: 'UTC'
+      timeZone: 'Asia/Kolkata'
     };
     return (new Intl.DateTimeFormat('en-US', options).format(newDate));
   };
