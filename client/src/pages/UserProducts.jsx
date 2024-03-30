@@ -73,7 +73,7 @@ export default function UserProducts() {
                                         </ul>
                                     </div>
                                     <div className="price p-4">
-                                        <h2 className="text-2xl font-semibold">&#8377;{(product.price - (product.price * product.discount / 100)).toLocaleString('en-US')}</h2>
+                                        <h2 className="text-2xl font-semibold">&#8377;{(product.price - Math.round(product.price * product.discount / 100)).toLocaleString('en-US')}</h2>
                                         <div className="flex gap-2 items-center">
                                             <h2 className="text-lg text-gray-500 line-through">&#8377;{product.price.toLocaleString('en-US')}</h2>
                                             <h2 className="text-xs text-orange-400 font-bold">{product.discount}% off</h2>
@@ -107,7 +107,7 @@ export default function UserProducts() {
                                             </ul>
                                         </div>
                                         <div className="price p-4">
-                                            <h2 className="text-2xl font-semibold">&#8377;{(product.price - (product.price * product.discount / 100)).toLocaleString('en-US')}</h2>
+                                            <h2 className="text-2xl font-semibold">&#8377;{(product.price - Math.round(product.price * product.discount / 100)).toLocaleString('en-US')}</h2>
                                             <div className="flex gap-2 items-center">
                                                 <h2 className="text-lg text-gray-500 line-through">&#8377;{product.price.toLocaleString('en-US')}</h2>
                                                 <h2 className="text-xs text-orange-400 font-bold">{product.discount}% off</h2>
@@ -121,7 +121,7 @@ export default function UserProducts() {
                                 </div>
                             </div>
                         </div>)
-                    )
+                )
                 )}
             </div>
         </div>

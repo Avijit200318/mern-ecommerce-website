@@ -46,13 +46,47 @@ export const updateProduct = async (req, res, next) => {
 };
 
 export const getProduct = async (req, res, next) => {
-    try{
+    try {
         const product = await productModel.findById(req.params.id);
-        if(!product) {
+        if (!product) {
             return next(errorHandle(404, "Product not fonund"));
         }
         res.status(200).json(product);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
-}
+};
+
+export const searchProduct = async (req, res, next) => {
+    try {
+        const limit = parseInt(req.query.limit) || 9;
+        const startIndex = parseInt(req.query.startIndex) || 0;
+
+        const searchTerm = req.query.searchTerm || '';
+
+        let delivaryFee = req.query.delivaryFee;
+        if (delivaryFee === undefined || delivaryFee === 'false') {
+            delivaryFee = { $in: [false, true] }
+        };
+
+        let type = req.query.type;
+        if (type === undefined || type === 'false') {
+            type = { $in: ['phone', 'computer', 'camera', 'boots', 'bag', 'headset', 'other'] };
+        };
+
+        const sort = req.query.sort || 'createdAt';
+        const order = req.query.order || 'desc';
+
+        const products = await productModel.find({
+            name: { $regex: searchTerm, $options: 'i' },
+            type,
+            delivaryFee,
+        }).sort(
+            { sort: order }
+        ).limit(limit).skip(startIndex);
+
+        return res.status(200).json(products);
+    } catch (error) {
+        next(error);
+    }
+};

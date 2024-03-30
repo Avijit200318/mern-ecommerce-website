@@ -185,9 +185,11 @@ export default function Product() {
             </ul>
 
             <div className="info flex gap-8 mt-4">
+              {(product.type === 'phone' || product.type === 'computer' || product.type === 'camera') && (
               <div className="one">
-                <h1 className="font-semibold text-gray-500">Highlights -</h1>
+                <h1 className="font-semibold text-gray-500">Highlights </h1>
               </div>
+              )}
               <div className="two">
                 {(product.type === 'phone' || product.type === 'computer') && (
                   <ul className="text-sm flex flex-col gap-2">
