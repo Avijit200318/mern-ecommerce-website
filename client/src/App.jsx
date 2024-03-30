@@ -16,6 +16,7 @@ import UpdateProduct from './pages/UpdateProduct';
 import Order from './pages/Order';
 import OrderConform from './pages/OrderConform';
 import OrderDetails from './pages/OrderDetails';
+import Search from './pages/Search';
 
 const App = () => {
   return <BrowserRouter >
@@ -27,6 +28,7 @@ const App = () => {
       <Route path='/sign-up' element={<SignUp />} />
       <Route path='/contact' element={<Contact />} />
       <Route path='/product/:productId' element={<Product />} />
+      <Route path='/search' element={<Search />} />
       <Route element={<PrivateRoute />}>
         <Route path='/cart' element={<Cart />} />
         <Route path='/profile' element={<Profile />} />

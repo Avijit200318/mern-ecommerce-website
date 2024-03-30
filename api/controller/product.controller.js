@@ -65,7 +65,7 @@ export const searchProduct = async (req, res, next) => {
         const searchTerm = req.query.searchTerm || '';
 
         let delivaryFee = req.query.delivaryFee;
-        if (delivaryFee === undefined || delivaryFee === 'false') {
+        if (delivaryFee === undefined || delivaryFee === 'true') {
             delivaryFee = { $in: [false, true] }
         };
 
@@ -82,7 +82,7 @@ export const searchProduct = async (req, res, next) => {
             type,
             delivaryFee,
         }).sort(
-            { sort: order }
+            { [sort]: order }
         ).limit(limit).skip(startIndex);
 
         return res.status(200).json(products);
