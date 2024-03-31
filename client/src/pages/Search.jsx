@@ -16,6 +16,7 @@ export default function Search() {
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState([]);
     // console.log('products are - ', products);
+    const [showMore, setShowMore] = useState(false);
 
     const handleChange = (e) => {
         if (e.target.id === 'searchTerm') {
@@ -71,12 +72,29 @@ export default function Search() {
             const searchQuery = urlParams.toString();
             const res = await fetch(`/api/product/search?${searchQuery}`);
             const data = await res.json();
+            if(data.length > 7){
+                setShowMore(true);
+            }
             setProducts(data);
             setLoading(false);
         };
         fetchSearchProducts();
 
-    }, [location.search])
+    }, [location.search]);
+
+    const onShowMoreClick = async () => {
+        const numberOfProducts = products.length;
+        const startIndex = numberOfProducts;
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('startIndex', startIndex);
+        const searchQuery = urlParams.toString();
+        const res = await fetch(`/api/product/search?${searchQuery}`);
+        const data = await res.json();
+        if(data.length < 8){
+            setShowMore(false);
+        }
+        setProducts([...products, ...data]);
+    };
 
     return (
         <main>
@@ -155,6 +173,12 @@ export default function Search() {
                             <h1 className="text-2xl mx-4 text-red-500 font-semibold">No Results found!</h1>
                         )}
                         {!loading && products.length > 0 && products.map((product) => <ProductCards key={product._id} product={product} />)}
+
+                        {showMore && (
+                            <div className="w-full flex justify-center">
+                                <button onClick={onShowMoreClick} className=" my-4 text-blue-700 font-semibold text-lg">Show More</button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
