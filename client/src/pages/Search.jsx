@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import ProductCards from '../components/ProductCards';
 
 export default function Search() {
 
@@ -10,18 +11,18 @@ export default function Search() {
         sort: 'cratedAt',
         order: 'desc',
     });
-    console.log(sideBarData);
+    // console.log(sideBarData);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState([]);
-    console.log('products are - ', products);
+    // console.log('products are - ', products);
 
     const handleChange = (e) => {
         if (e.target.id === 'searchTerm') {
             setSideBarData({ ...sideBarData, searchTerm: e.target.value });
         }
         else if (e.target.id === 'delivaryFee') {
-            setSideBarData({ ...sideBarData,  [e.target.id]: e.target.checked || e.target.checked === 'false' ? false : true });
+            setSideBarData({ ...sideBarData, [e.target.id]: e.target.checked || e.target.checked === 'false' ? false : true });
         }
         else if (e.target.id === 'sort_order') {
             const sort = e.target.value.split('_')[0] || 'createdAt';
@@ -47,7 +48,7 @@ export default function Search() {
         navigate(`/search?${searchQuery}`);
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
         const searchTermFromUrl = urlParams.get('searchTerm');
         const typeFromUrl = urlParams.get('type');
@@ -55,22 +56,23 @@ export default function Search() {
         const orderFromUrl = urlParams.get('order');
         const sortFromUrl = urlParams.get('sort');
 
-        if(searchTermFromUrl || typeFromUrl || delivaryFeeFromUrl || orderFromUrl || sortFromUrl){
+        if (searchTermFromUrl || typeFromUrl || delivaryFeeFromUrl || orderFromUrl || sortFromUrl) {
             setSideBarData({
                 searchTerm: searchTermFromUrl || '',
                 type: typeFromUrl || 'all',
-                delivaryFee:  delivaryFeeFromUrl==='false' ? false : true,
+                delivaryFee: delivaryFeeFromUrl === 'false' ? false : true,
                 order: orderFromUrl || 'desc',
                 sort: sortFromUrl || 'createdAt',
             })
         };
 
-        const fetchSearchProducts = async() => {
+        const fetchSearchProducts = async () => {
             setLoading(true);
             const searchQuery = urlParams.toString();
             const res = await fetch(`/api/product/search?${searchQuery}`);
             const data = await res.json();
             setProducts(data);
+            setLoading(false);
         };
         fetchSearchProducts();
 
@@ -78,7 +80,7 @@ export default function Search() {
 
     return (
         <main>
-            <div className="flex w-full h-screen">
+            <div className="flex w-full">
                 <div className="left w-[30%] h-full border border-black py-4 px-4">
                     <form onSubmit={handleSubmit} className="py-4 flex flex-col gap-6 px-4">
                         <div className="flex gap-3 items-center">
@@ -141,10 +143,18 @@ export default function Search() {
                         <button className="w-full py-2 px-4 bg-blue-600 text-white text-lg rounded-md font-semibold transition-all duration-300 hover:bg-blue-500 disabled:bg-blue-500">Search</button>
                     </form>
                 </div>
-                <div className="right w-[70%] h-full border border-black p-4">
+                <div className="right w-[70%] h-full border border-black p-2">
                     <h1 className="text-2xl my-4">Search Results</h1>
-                    <div className="">
-
+                    <div className="flex gap-1 flex-wrap justify-start">
+                        {loading && (
+                            <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff]">
+                                <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
+                            </div>
+                        )}
+                        {(!loading && products.length === 0) && (
+                            <h1 className="text-2xl mx-4 text-red-500 font-semibold">No Results found!</h1>
+                        )}
+                        {!loading && products.length > 0 && products.map((product) => <ProductCards key={product._id} product={product} />)}
                     </div>
                 </div>
             </div>

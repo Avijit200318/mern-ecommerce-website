@@ -70,7 +70,7 @@ export const searchProduct = async (req, res, next) => {
         };
 
         let type = req.query.type;
-        if (type === undefined || type === 'false') {
+        if (type === undefined || type === 'all') {
             type = { $in: ['phone', 'computer', 'camera', 'boots', 'bag', 'headset', 'other'] };
         };
 
