@@ -90,3 +90,21 @@ export const searchProduct = async (req, res, next) => {
         next(error);
     }
 };
+
+export const ratingProduct = async(req, res, next) => {
+    const product = await productModel.findById(req.params.id);
+    if(!product){
+        return next(errorHandle(401, "Product not found"));
+    }
+    try{
+        const updatedProduct = await productModel.findByIdAndUpdate(
+            req.params.id,
+            {rating: req.body.rating},
+            {new: true}
+        );
+        return res.status(200).json(updatedProduct);
+    }catch(error){
+        next(error);
+    }
+
+}

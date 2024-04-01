@@ -233,7 +233,13 @@ export default function Product() {
             </div>
             <div className="flex gap-8 my-4">
               <h1 className="font-semibold text-gray-500">Waranty</h1>
-              <h1 className="">{product.waranty} Warranty for Product and 6 Months Warranty for In-Box Accessories</h1>
+              {product.waranty === 'no' ? (
+                <h1 className="">{product.waranty} Warranty for the Product</h1>
+              ): product.waranty === '1 Year'? (
+                <h1 className="">{product.waranty} Warranty for Product and 6 Months Warranty for In-Box Accessories</h1>
+              ):(
+                <h1 className="">{product.waranty} Warranty for the Product</h1>
+              )}
             </div>
             <div className="info flex gap-8 mt-4">
               <div className="one">
@@ -261,7 +267,7 @@ export default function Product() {
               <div className="flex">
                 <div className="left border border-black w-1/2 p-3 flex">
                   <div className="">
-                    <h1 className="text-3xl text-gray-800">{product.rating}&#9733;</h1>
+                    <h1 className="text-3xl text-gray-800">{(+product.rating).toFixed(1)}&#9733;</h1>
                     <h1 className="text-lg my-2">134 Rattings & 9 Reviews</h1>
                   </div>
                   <div className="">
@@ -278,6 +284,11 @@ export default function Product() {
                   <CircularProgressBar rating={4} title={"Display"} />
                 </div>
               </div>
+              {(currentUser.admin === 'yes') && (
+                <Link to={`/rate/${product._id}`}>
+                  <button style={{boxShadow: "0px 1px 3px 0px black"}} className="px-4 block py-2 my-2">Rate Product</button>
+                </Link>
+              )}
             </div>
 
           </div>

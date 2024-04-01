@@ -63,7 +63,7 @@ export default function UserProducts() {
                                 <div className="flex justify-between">
                                     <div className="info">
                                         <h3 className="text-xl font-semibold mb-1">{product.name}</h3>
-                                        <h3 className='text-sm font-semibold'><span className="bg-orange-400 text-white p-1 text-xs font-semibold rounded-md">{product.rating}&#9733;</span> 134 Ratings & 9 Reviews</h3>
+                                        <h3 className='text-sm font-semibold'><span className="bg-orange-400 text-white p-1 text-xs font-semibold rounded-md">{(+product.rating).toFixed(1)}&#9733;</span> 134 Ratings & 9 Reviews</h3>
                                         <ul className="list-none flex flex-col gap-1 pt-4">
                                             <li className="text-sm">{product.ram} RAM | {product.storage} ROM</li>
                                             <li className="text-sm">{product.processor}</li>
@@ -98,7 +98,7 @@ export default function UserProducts() {
                                     <div className="flex justify-between">
                                         <div className="info">
                                             <h3 className="text-xl font-semibold mb-1">{product.name}</h3>
-                                            <h3 className='text-sm font-semibold'><span className="bg-orange-400 text-white p-1 text-xs font-semibold rounded-md">{product.rating}&#9733;</span> 134 Ratings & 9 Reviews</h3>
+                                            <h3 className='text-sm font-semibold'><span className="bg-orange-400 text-white p-1 text-xs font-semibold rounded-md">{(+product.rating).toFixed(1)}&#9733;</span> 134 Ratings & 9 Reviews</h3>
                                             <ul className="list-none flex flex-col gap-1 pt-4">
                                                 <li className='text-sm w-[23rem] line-clamp-3 mb-2'>{product.description}</li>
                                                 <li className='text-sm'>{product.camera}</li>

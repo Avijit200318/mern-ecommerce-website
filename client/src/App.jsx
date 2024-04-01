@@ -17,6 +17,8 @@ import Order from './pages/Order';
 import OrderConform from './pages/OrderConform';
 import OrderDetails from './pages/OrderDetails';
 import Search from './pages/Search';
+import RateProduct from './pages/RateProduct';
+import AllOrders from './pages/AllOrders';
 
 const App = () => {
   return <BrowserRouter >
@@ -38,6 +40,8 @@ const App = () => {
         <Route path='/order' element={<Order />} />
         <Route path='/orderCon/:productId' element={<OrderConform />} />
         <Route path='/orderDetails/:OrderId' element={<OrderDetails />} />
+        <Route path='/rate/:productId' element={<RateProduct />} />
+        <Route path='/allOrders' element={<AllOrders />} />
       </Route>
     </Routes>
   </BrowserRouter>

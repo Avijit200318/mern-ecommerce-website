@@ -8,7 +8,7 @@ export default function Search() {
         searchTerm: '',
         type: 'all',
         delivaryFee: true,
-        sort: 'cratedAt',
+        sort: 'createdAt',
         order: 'desc',
     });
     // console.log(sideBarData);

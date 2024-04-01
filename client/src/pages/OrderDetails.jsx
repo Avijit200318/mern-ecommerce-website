@@ -216,7 +216,7 @@ export default function OrderDetails() {
               </div>
             )}
           </div>
-          <div className="flex gap-8 mt-10 ml-20">
+          <div className="flex gap-8 mt-10 ml-20 mb-6">
             <button onClick={handleCancleOrder} className="px-4 py-2 bg-[#52D3D8] rounded-md w-32">Cancel</button>
             <button className="px-4 py-2 bg-[#52D3D8] rounded-md w-32">Need help?</button>
           </div>

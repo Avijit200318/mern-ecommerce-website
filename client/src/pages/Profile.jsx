@@ -145,6 +145,9 @@ export default function Profile() {
         </form>
         <Link to='/create-product' className='bg-blue-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
         <Link to='/userProducts' className='bg-green-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Your Products</Link>
+        {currentUser.admin === 'yes' && (
+          <Link to='/allOrders' className='bg-[#0d6efd] text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>All Orders</Link>
+        )}
         <button onClick={handleSignOut} className='bg-red-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
         <button onClick={handleDeleteUser} className='bg-red-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
       </div>
