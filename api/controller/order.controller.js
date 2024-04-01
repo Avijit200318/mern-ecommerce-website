@@ -95,3 +95,12 @@ export const removeOrder = async(req, res, next) => {
         next(error);
     }
 };
+
+export const allOrders = async(req, res, next) => {
+    try{
+        const allOrderDetails = await orderModel.find();
+        return res.status(200).json(allOrderDetails);
+    }catch(error){
+        next(error);
+    }
+};
