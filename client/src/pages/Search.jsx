@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import ProductCards from '../components/ProductCards';
+import Footer from '../components/Footer';
 
 export default function Search() {
 
@@ -97,7 +98,7 @@ export default function Search() {
     };
 
     return (
-        <main>
+        <div>
             <div className="flex w-full">
                 <div className="left w-[30%] h-full border border-black py-4 px-4">
                     <form onSubmit={handleSubmit} className="py-4 flex flex-col gap-6 px-4">
@@ -182,6 +183,7 @@ export default function Search() {
                     </div>
                 </div>
             </div>
-        </main>
+            <Footer />
+        </div>
     )
 }

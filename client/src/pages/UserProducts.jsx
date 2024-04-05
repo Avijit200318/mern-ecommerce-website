@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 export default function UserProducts() {
     const { currentUser } = useSelector((state) => state.user);
@@ -21,6 +22,7 @@ export default function UserProducts() {
                     setShowPorductError(true);
                 }
                 setUserProducts(data);
+                setProductLoading(false);
             } catch (error) {
                 setShowPorductError(true);
                 setProductLoading(false);
@@ -48,6 +50,13 @@ export default function UserProducts() {
     };
 
     return (
+        <main>
+            {productLoading && (
+                <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff]">
+                <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
+              </div>
+            )}
+            {(userProducts.length > 0 && !productLoading) && (
         <div>
             <h1 className='text-center text-3xl my-6 font-semibold'>Your Products</h1>
             <div className="w-full p-8 border border-black flex flex-col gap-4">
@@ -125,5 +134,8 @@ export default function UserProducts() {
                 )}
             </div>
         </div>
+            )}
+            <Footer />
+        </main>
     )
 }

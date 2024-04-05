@@ -31,7 +31,7 @@ export default function Header() {
   }
 
   return (
-    <header className=''>
+    <header id='header' className=''>
       <div className="flex w-full justify-between items-center bg-[#0d6efd] px-10 py-2">
         <div className="nameLogo flex items-center">
           <img src={Logo} alt="" className="w-8" />
@@ -40,8 +40,8 @@ export default function Header() {
           </Link>
         </div>
         <div className="links flex justify-center items-center gap-8 text-white font-semibold w-[20%]">
-          <Link to='/about' className='text-lg'>About</Link>
-          <Link to='/contact' className='text-lg'>Contact</Link>
+          {/* <Link to='/about' className='text-lg'>About</Link>
+          <Link to='/contact' className='text-lg'>Contact</Link> */}
         </div>
         <form onSubmit={handleSubmit} className="w-[40%] pr-8 bg-white relative rounded-full overflow-hidden">
           <input type="text" className="w-full px-4 py-2 outline-none" placeholder='Search...' value={searchTerm} onChange={(e)=> setSearchTerm(e.target.value)} />

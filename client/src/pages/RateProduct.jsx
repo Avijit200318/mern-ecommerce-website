@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { IoStar } from "react-icons/io5";
+import Footer from '../components/Footer';
 
 
 export default function RateProduct() {
@@ -61,7 +62,7 @@ export default function RateProduct() {
     }
 
     return (
-        <main>
+        <div>
             {loading && (
                 <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff]">
                     <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
@@ -93,6 +94,7 @@ export default function RateProduct() {
                     </div>
                 </div>
             )}
-        </main>
+            <Footer />
+        </div>
     )
 }

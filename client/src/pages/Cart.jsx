@@ -110,12 +110,12 @@ export default function Cart() {
 
   const handleQuantityDecrease = async (productPrice, productDiscount, productId, productQuantity) => {
 
-    if(productQuantity === 1){
+    if (productQuantity === 1) {
       return handleCartItemDelete(productId);
     }
-      const discount = Math.round(productDiscount * productPrice / 100);
-      setTotalPrice(totalPrice - productPrice);
-      setTotalDiscount(totalDiscount - discount);
+    const discount = Math.round(productDiscount * productPrice / 100);
+    setTotalPrice(totalPrice - productPrice);
+    setTotalDiscount(totalDiscount - discount);
 
     try {
       setDecreaseError(null);
@@ -193,45 +193,48 @@ export default function Cart() {
         <h1 className="text-2xl font-semibold my-4 pl-16">Your Cart is Empty...</h1>
       )}
       {(cartData.length > 0 && !loading) && (
-        <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6] min-h-[90vh]">
-          <div className="left bg-white w-[60%] flex flex-col gap-4 p-4 shadow-xl">
-            {cartData.map((product, index) =>
-              <div key={index} className="product p-4 flex gap-4 bg-white ">
-                <div className="">
-                  <Link to={`/product/${product.productId}`}>
-                  <div className="img w-36 h-36">
-                    <img src={product.image} alt="" className="w-full h-full object-contain" />
-                  </div>
-                  </Link>
-                  <div className="flex justify-center gap-2 items-center">
-                    <button onClick={() => handleQuantityDecrease(product.price, product.discount, product._id, product.quantity)} className='text-3xl'><CiSquareMinus /></button>
-                    <h1 id='quantity' className="border border-black w-8 text-center my-2">{product.quantity}</h1>
-                    <button onClick={() => handleQuantityIncrease(product.price, product.discount, product._id)} className='text-3xl'><CiSquarePlus /></button>
-                  </div>
-                  {decreaseError && <p className='absolute text-red-600 font-semibold'>{decreaseError}</p>}
-                </div>
-                <div className="info py-2 px-4">
-                  <Link to={`/product/${product.productId}`}>
-                  <h1 className="text-xl">{product.name}</h1>
-                  <h1 className="text-lg font-semibold"><span className='text-sm line-through text-gray-400 mr-2'>&#8377;{product.price}</span> &#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
-                  <h1 className="text-sm">Delivery by {deliveryDate} | <span className="">{product.delivaryFee ? 'Delivery Charge ₹40' : 'FREE Delivery'}</span></h1>
-                  </Link>
+        <div>
 
-                  <button onClick={() => handleCartItemDelete(product._id)} className='bg-red-600 text-white py-1 px-2 rounded mt-4 transition-all duration-300 hover:bg-red-500'>REMOVE</button>
+          <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6] min-h-[90vh]">
+            <div className="left bg-white w-[60%] flex flex-col gap-4 p-4 shadow-xl">
+              {cartData.map((product, index) =>
+                <div key={index} className="product p-4 flex gap-4 bg-white ">
+                  <div className="">
+                    <Link to={`/product/${product.productId}`}>
+                      <div className="img w-36 h-36">
+                        <img src={product.image} alt="" className="w-full h-full object-contain" />
+                      </div>
+                    </Link>
+                    <div className="flex justify-center gap-2 items-center">
+                      <button onClick={() => handleQuantityDecrease(product.price, product.discount, product._id, product.quantity)} className='text-3xl'><CiSquareMinus /></button>
+                      <h1 id='quantity' className="border border-black w-8 text-center my-2">{product.quantity}</h1>
+                      <button onClick={() => handleQuantityIncrease(product.price, product.discount, product._id)} className='text-3xl'><CiSquarePlus /></button>
+                    </div>
+                    {decreaseError && <p className='absolute text-red-600 font-semibold'>{decreaseError}</p>}
+                  </div>
+                  <div className="info py-2 px-4">
+                    <Link to={`/product/${product.productId}`}>
+                      <h1 className="text-xl">{product.name}</h1>
+                      <h1 className="text-lg font-semibold"><span className='text-sm line-through text-gray-400 mr-2'>&#8377;{product.price}</span> &#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
+                      <h1 className="text-sm">Delivery by {deliveryDate} | <span className="">{product.delivaryFee ? 'Delivery Charge ₹40' : 'FREE Delivery'}</span></h1>
+                    </Link>
+
+                    <button onClick={() => handleCartItemDelete(product._id)} className='bg-red-600 text-white py-1 px-2 rounded mt-4 transition-all duration-300 hover:bg-red-500'>REMOVE</button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-          <div className={`right py-4 w-[25%] bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled ? 'top-[15px] fixed right-[14.5%]' : ''}`}>
-            <h1 className="text-xl font-semibold border-b-2 py-3 text-center">Product Details</h1>
-            <div className="p-4 text-lg flex flex-col gap-4 border">
-              <div className="flex justify-between"><h1>Price ({cartData.length} itmes)</h1> <h1>&#8377;{(totalPrice.toLocaleString('en-US'))}</h1></div>
-              <div className="flex justify-between"><h1>Discount</h1> <h1 className='text-orange-400 font-semibold'>- &#8377;{(totalDiscount).toLocaleString('en-US')}</h1></div>
-              <div className="flex justify-between"><h1>Delivery Charge</h1> <h1>{totalDelivaryCharge === 0 ? <span className='uppercase text-orange-400'>free</span> : <span className=''>&#8377;{totalDelivaryCharge}</span>}</h1></div>
+              )}
             </div>
-            <div className="p-4 text-lg font-semibold border-b-2 flex justify-between"> <h1>Totoal Amount</h1> <h1>&#8377;{(totalPrice - totalDiscount + totalDelivaryCharge).toLocaleString('en-US')}</h1></div>
-            <div className="p-4 text-base font-semibold text-orange-400 flex justify-between"><h1>Total amount you save</h1> <h1>&#8377;{(totalDiscount).toLocaleString('en-US')}</h1></div>
-            <button className="w-[80%] mx-auto mt-2 py-2 text-base font-semibold text-white bg-orange-400 transition-all duration-300 hover:bg-orange-500">Place Order</button>
+            <div className={`right py-4 w-[25%] bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled ? 'top-[15px] fixed right-[14.5%]' : ''}`}>
+              <h1 className="text-xl font-semibold border-b-2 py-3 text-center">Product Details</h1>
+              <div className="p-4 text-lg flex flex-col gap-4 border">
+                <div className="flex justify-between"><h1>Price ({cartData.length} itmes)</h1> <h1>&#8377;{(totalPrice.toLocaleString('en-US'))}</h1></div>
+                <div className="flex justify-between"><h1>Discount</h1> <h1 className='text-orange-400 font-semibold'>- &#8377;{(totalDiscount).toLocaleString('en-US')}</h1></div>
+                <div className="flex justify-between"><h1>Delivery Charge</h1> <h1>{totalDelivaryCharge === 0 ? <span className='uppercase text-orange-400'>free</span> : <span className=''>&#8377;{totalDelivaryCharge}</span>}</h1></div>
+              </div>
+              <div className="p-4 text-lg font-semibold border-b-2 flex justify-between"> <h1>Totoal Amount</h1> <h1>&#8377;{(totalPrice - totalDiscount + totalDelivaryCharge).toLocaleString('en-US')}</h1></div>
+              <div className="p-4 text-base font-semibold text-orange-400 flex justify-between"><h1>Total amount you save</h1> <h1>&#8377;{(totalDiscount).toLocaleString('en-US')}</h1></div>
+              <button className="w-[80%] mx-auto mt-2 py-2 text-base font-semibold text-white bg-orange-400 transition-all duration-300 hover:bg-orange-500">Place Order</button>
+            </div>
           </div>
         </div>
       )}

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useSyncExternalStore } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { updateUserStart, updateUserFailure, updateUserSuccess } from '../redux/user/userSlice';
+import Footer from '../components/Footer';
 
 // icons
 import { IoCart } from "react-icons/io5";
@@ -33,6 +34,7 @@ export default function Product() {
   const [cartBtnLoading, setCartBtnLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -94,6 +96,9 @@ export default function Product() {
   };
 
   const handleaddToCart = async () => {
+    if(!currentUser){
+      navigate("/sign-up");
+    }
     try {
       dispatch(updateUserStart());
       setCartBtnLoading(true);
@@ -226,7 +231,7 @@ export default function Product() {
                 <h1 className="font-semibold text-gray-500">Delivery</h1>
               </div>
               <div className="two">
-                <h1 className="flex gap-2 items-center border-b-2 border-blue-500 py-2"><FaMapMarkerAlt /> {currentUser.address} <Link to='/profile' className="px-2 bg-blue-500 text-white rounded-md">Edit</Link></h1>
+                <h1 className="flex gap-2 items-center border-b-2 border-blue-500 py-2"><FaMapMarkerAlt /> {currentUser? currentUser.address : 'Your Address...'} <Link to='/profile' className="px-2 bg-blue-500 text-white rounded-md">Edit</Link></h1>
                 <h1 className="font-semibold">Delivery by {delivaryDate}</h1>
                 {product.delivaryFee ? <div className='text-sm font-semibold text-gray-600 flex gap-1 items-center'>Delivary Charge 	&#8377;40 <FaTruckFast className='text-base' /></div> : <div className='text-sm font-semibold text-gray-500 flex gap-1 items-center'>FREE <span className='line-through'>&#8377;40</span><FaTruckFast className='text-base' /></div>}
               </div>
@@ -284,7 +289,7 @@ export default function Product() {
                   <CircularProgressBar rating={4} title={"Display"} />
                 </div>
               </div>
-              {(currentUser.admin === 'yes') && (
+              {(currentUser && currentUser.admin === 'yes') && (
                 <Link to={`/rate/${product._id}`}>
                   <button style={{boxShadow: "0px 1px 3px 0px black"}} className="px-4 block py-2 my-2">Rate Product</button>
                 </Link>
@@ -300,6 +305,7 @@ export default function Product() {
         lorme50
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem cumque animi aut quis sunt cupiditate ipsam consequatur, eveniet illo nisi esse, praesentium corporis saepe, maxime aliquam quod ratione omnis quia. Eaque, harum. Fugit quas autem tenetur est dignissimos officiis, omnis asperiores distinctio. Vitae distinctio porro suscipit asperiores earum corrupti nobis?
       </div>
+      <Footer />
     </main>
   )
 }

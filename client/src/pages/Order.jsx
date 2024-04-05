@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { updateUserSuccess, updateUserFailure, updateUserStart } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import Footer from '../components/Footer';
 
 export default function Order() {
 
@@ -108,6 +109,9 @@ export default function Order() {
           </div>
 
         </div>
+      )}
+      {(orders && orders.length !== 0) && (
+        <Footer />
       )}
     </div>
   )

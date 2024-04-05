@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+
 
 export default function AllOrders() {
     const [orders, setOrders] = useState(null);
@@ -82,6 +84,7 @@ export default function AllOrders() {
                         </div>
 
                     </div>
+                    <Footer />
                 </div>
             )}
         </div>
