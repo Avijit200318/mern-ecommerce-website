@@ -32,6 +32,8 @@ export default function Product() {
   const [colorImageIndex, setColorImageIndex] = useState(0);
   const [cartItemError, setCartItemError] = useState(null);
   const [cartBtnLoading, setCartBtnLoading] = useState(false);
+  const [similarProduct, setSimilarProduct] = useState(null);
+  console.log(similarProduct);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ export default function Product() {
         }
         setProduct(data);
         setShowImage(data.image[0]);
-        setLoading(false);
+        fetchSimilarProduct(data.type);
       } catch (error) {
         setError(true);
         setLoading(true);
@@ -58,7 +60,25 @@ export default function Product() {
     };
 
     fetchProductData();
-  }, []);
+
+    const fetchSimilarProduct = async (type) => {
+        try {
+          const res = await fetch(`/api/product/search?type=${type}&limit=8`);
+          const data = await res.json();
+          if (data.success === false) {
+            console.log(data.message);
+            setLoading(false);
+            return;
+          }
+          setSimilarProduct(data);
+          setLoading(false);
+        } catch (error) {
+          console.log(error.message);
+          setLoading(false);
+        }
+    };
+
+  }, [params.productId]);
 
   useState(() => {
     const handleDelivaryDate = () => {
@@ -96,7 +116,7 @@ export default function Product() {
   };
 
   const handleaddToCart = async () => {
-    if(!currentUser){
+    if (!currentUser) {
       navigate("/sign-up");
     }
     try {
@@ -146,11 +166,11 @@ export default function Product() {
   return (
     <main>
       {loading && (
-        <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff]">
+        <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff] z-50">
           <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
         </div>
       )}
-      {product && (
+      {(!loading && product) && (
         <div className="w-full py-10 px-16 flex gap-4">
           <div className="left w-[35%] relative">
             <div id='left' className="flex gap-2">
@@ -191,9 +211,9 @@ export default function Product() {
 
             <div className="info flex gap-8 mt-4">
               {(product.type === 'phone' || product.type === 'computer' || product.type === 'camera') && (
-              <div className="one">
-                <h1 className="font-semibold text-gray-500">Highlights </h1>
-              </div>
+                <div className="one">
+                  <h1 className="font-semibold text-gray-500">Highlights </h1>
+                </div>
               )}
               <div className="two">
                 {(product.type === 'phone' || product.type === 'computer') && (
@@ -231,7 +251,7 @@ export default function Product() {
                 <h1 className="font-semibold text-gray-500">Delivery</h1>
               </div>
               <div className="two">
-                <h1 className="flex gap-2 items-center border-b-2 border-blue-500 py-2"><FaMapMarkerAlt /> {currentUser? currentUser.address : 'Your Address...'} <Link to='/profile' className="px-2 bg-blue-500 text-white rounded-md">Edit</Link></h1>
+                <h1 className="flex gap-2 items-center border-b-2 border-blue-500 py-2"><FaMapMarkerAlt /> {currentUser ? currentUser.address : 'Your Address...'} <Link to='/profile' className="px-2 bg-blue-500 text-white rounded-md">Edit</Link></h1>
                 <h1 className="font-semibold">Delivery by {delivaryDate}</h1>
                 {product.delivaryFee ? <div className='text-sm font-semibold text-gray-600 flex gap-1 items-center'>Delivary Charge 	&#8377;40 <FaTruckFast className='text-base' /></div> : <div className='text-sm font-semibold text-gray-500 flex gap-1 items-center'>FREE <span className='line-through'>&#8377;40</span><FaTruckFast className='text-base' /></div>}
               </div>
@@ -240,9 +260,9 @@ export default function Product() {
               <h1 className="font-semibold text-gray-500">Waranty</h1>
               {product.waranty === 'no' ? (
                 <h1 className="">{product.waranty} Warranty for the Product</h1>
-              ): product.waranty === '1 Year'? (
+              ) : product.waranty === '1 Year' ? (
                 <h1 className="">{product.waranty} Warranty for Product and 6 Months Warranty for In-Box Accessories</h1>
-              ):(
+              ) : (
                 <h1 className="">{product.waranty} Warranty for the Product</h1>
               )}
             </div>
@@ -291,7 +311,7 @@ export default function Product() {
               </div>
               {(currentUser && currentUser.admin === 'yes') && (
                 <Link to={`/rate/${product._id}`}>
-                  <button style={{boxShadow: "0px 1px 3px 0px black"}} className="px-4 block py-2 my-2">Rate Product</button>
+                  <button style={{ boxShadow: "0px 1px 3px 0px black" }} className="px-4 block py-2 my-2">Rate Product</button>
                 </Link>
               )}
             </div>
@@ -299,11 +319,21 @@ export default function Product() {
           </div>
         </div>
       )}
-      <div id='lastDiv' className="h-64">
-        this is new location
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam laudantium ipsum dicta, ex atque sequi unde error, quis temporibus, sit sunt! Harum, illum alias. Rem architecto voluptates dignissimos esse molestias!
-        lorme50
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem cumque animi aut quis sunt cupiditate ipsam consequatur, eveniet illo nisi esse, praesentium corporis saepe, maxime aliquam quod ratione omnis quia. Eaque, harum. Fugit quas autem tenetur est dignissimos officiis, omnis asperiores distinctio. Vitae distinctio porro suscipit asperiores earum corrupti nobis?
+      <h1 className="text-2xl font-semibold px-6 py-2">Similar Items</h1>
+      <div id='lastDiv' className="px-4 py-2 flex gap-4 justify-center ">
+      {(!loading && similarProduct) && (
+        similarProduct.map((product, index)=>
+        <Link to={`/product/${product._id}`} key={index}>
+          <div className="card w-40 h-full shadow-xl border rounded-md overflow-hidden">
+            <div className="img w-full h-32 overflow-hidden">
+              <img src={product.image[0]} alt="" className='w-full h-full object-contain transition-all duration-300 hover:scale-105' />
+            </div>
+            <h1 className="px-2 py-1 line-clamp-3">{product.name}</h1>
+            <h1 className="px-2 py-1"><span className="text-white bg-orange-400 rounded-sm px-[2px]">{(+product.rating).toFixed(1)}&#9733;</span> Ratings</h1>
+          </div>
+        </Link>
+        )
+      )}
       </div>
       <Footer />
     </main>

@@ -159,7 +159,7 @@ export default function Home() {
         </div>
       )}
       {loading === false && (
-        <div>
+        <div className=''>
           <Swiper modules={[Navigation]} spaceBetween={50} slidesPerView={1} navigation={true} autoplay={{ delay: 5000, disableOnInteraction: false }} loop={true} loopedslides={1}>
             {
               slides.map((slide, index) => (

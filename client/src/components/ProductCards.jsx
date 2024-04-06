@@ -6,8 +6,8 @@ export default function ProductCards({ product }) {
         <div>
             <Link to={`/product/${product._id}`}>
                 <div className="border border-black  w-64 p-3 flex flex-col gap-3 overflow-hidden">
-                    <div className="left h-60 w-full flex justify-center">
-                        <img src={product.image[0]} alt="" className="w-full h-full object-contain" />
+                    <div className="left h-60 w-full flex justify-center overflow-hidden">
+                        <img src={product.image[0]} alt="" className="w-full h-full object-contain transition-all duration-300 hover:scale-110" />
                     </div>
                     <div className="right px-1">
                         <h1 className="text-xl font-semibold my-3 truncate">{product.name}</h1>
