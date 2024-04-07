@@ -134,7 +134,7 @@ export default function Profile() {
         <span className="text-red-700 font-semibold absolute top-[14.5rem]">{error}</span>
       )}
       {userUpdate ? <span className='text-green-600 font-semibold absolute top-[14.5rem]'>User updated successfully</span> : ''}
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 px-8 pt-8 pb-0 w-[30rem] rounded-lg">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 px-4 pt-8 pb-0 w-full rounded-lg sm:w-[70%] md:w-[30rem] sm:px-8">
           <input type="file" hidden onChange={(e) => setFile(e.target.files[0])} ref={fileRef} accept='image/*' />
           <input type="text" placeholder='username' id='username' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.username} onChange={handleChange} />
           <input type="email" placeholder='email' id='email' className="px-4 py-3 rounded-lg w-full border border-black" defaultValue={currentUser.email} onChange={handleChange} />
@@ -143,13 +143,13 @@ export default function Profile() {
           <textarea cols="30" placeholder='Address' id='address' className="w-full rounded-lg p-4 resize-none border border-black" defaultValue={currentUser.address} onChange={handleChange}></textarea>
           <button disabled={loading} className="w-full uppercase bg-[#0d6efd] p-3 font-semibold rounded-lg text-white disabled:bg-blue-500 transition-all duration-300 hover:bg-blue-700">{loading ? 'Updating...' : 'Update'}</button>
         </form>
-        <Link to='/create-product' className='bg-blue-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Sell Products</Link>
-        <Link to='/userProducts' className='bg-green-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Your Products</Link>
+        <Link to='/create-product' className='bg-blue-800 text-white uppercase w-[90%] text-center font-semibold py-3 rounded-lg sm:w-[61%] md:w-[26rem]'>Sell Products</Link>
+        <Link to='/userProducts' className='bg-green-600 text-white uppercase w-[90%] text-center font-semibold py-3 rounded-lg sm:w-[61%] md:w-[26rem]'>Your Products</Link>
         {currentUser.admin === 'yes' && (
-          <Link to='/allOrders' className='bg-[#0d6efd] text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>All Orders</Link>
+          <Link to='/allOrders' className='bg-[#0d6efd] text-white uppercase w-[90%] text-center font-semibold py-3 rounded-lg sm:w-[61%] md:w-[26rem]'>All Orders</Link>
         )}
-        <button onClick={handleSignOut} className='bg-red-600 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>SignOut</button>
-        <button onClick={handleDeleteUser} className='bg-red-800 text-white uppercase w-[26rem] text-center font-semibold py-3 rounded-lg'>Delete Account</button>
+        <button onClick={handleSignOut} className='bg-red-600 text-white uppercase w-[90%] text-center font-semibold py-3 rounded-lg sm:w-[61%] md:w-[26rem]'>SignOut</button>
+        <button onClick={handleDeleteUser} className='bg-red-800 text-white uppercase w-[90%] text-center font-semibold py-3 rounded-lg sm:w-[61%] md:w-[26rem]'>Delete Account</button>
       </div>
     </div>
   )

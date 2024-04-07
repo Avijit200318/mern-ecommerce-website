@@ -4,11 +4,11 @@ import { HashLink } from 'react-router-hash-link';
 
 export default function Footer() {
     return (
-        <div className='bg-[#232f3e] text-gray-300'>
+        <div className='bg-[#232f3e] text-gray-300 px-2'>
             <HashLink smooth to='#header'>
             <button className='w-full text-center text-xl font-semibold bg-[#314153] py-3 hover:bg-[#33455b]'>Back to Top</button>
             </HashLink>
-            <div className="flex gap-6 justify-around py-6">
+            <div className="flex gap-6 justify-around py-6 flex-wrap">
                 <div className="">
                     <h1 className="text-lg font-semibold text-white">Get to Know Us</h1>
                     <ul className='flex flex-col gap-2'>

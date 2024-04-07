@@ -103,7 +103,7 @@ export default function Header() {
           </form>
         </div>
         <button onClick={handleMenuBtn} className="text-white text-3xl sm:hidden"><IoMenu /></button>
-        <div style={{right: menuBtnOption ? '0' : '-100%' }} className="allBtns flex flex-row-reverse items-center gap-4 w-full text-white font-semibold absolute  top-2 right-0 bg-[#0d6efd] z-20 transition-all duration-300 px-2 sm:flex sm:z-0 sm:static sm:right-auto sm:top-auto sm:flex-row sm:justify-between sm:w-auto">
+        <div style={{right: menuBtnOption ? '0' : '-100%' }} className="allBtns flex flex-row-reverse items-center gap-4 w-full text-white font-semibold absolute  top-2 right-0 bg-[#0d6efd] z-20 transition-all duration-300 px-2 h-10 sm:flex sm:z-0 sm:static sm:right-auto sm:top-auto sm:flex-row sm:justify-between sm:w-auto">
         <button onClick={handleMenuBtn} className="text-2xl text-white font-semibold pr-2 sm:hidden"><RxCross2 /></button>
           <Link title='Order' to="/order" className="text-2xl  relative"><BsBoxSeamFill />
             {currentUser && currentUser.order.length > 0 && <span className='bg-red-600 w-[15px] h-[15px] rounded-full absolute top-[-1px] right-[-8px] flex items-center justify-center text-[0.7rem]'>{currentUser.order.length}</span>}

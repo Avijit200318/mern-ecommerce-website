@@ -26,7 +26,7 @@ export default function Contact() {
   return (
     <div className='flex flex-col items-center'>
       <h1 className="text-2xl font-semibold py-6">Contact</h1>
-      <div className="w-[40%]">
+      <div className="w-[80%] sm:w-[60%] lg:w-[40%]">
         <form className="flex flex-col gap-4">
           <input type="text" id='name' placeholder='name' className='border border-black py-2 px-4 rounded-md' required defaultValue={userMessage.name} onChange={handleChange}/>
           <input type="number" id='contact' placeholder='contact' className='border border-black py-2 px-4 rounded-md' defaultValue={userMessage.contact} required onChange={handleChange}/>

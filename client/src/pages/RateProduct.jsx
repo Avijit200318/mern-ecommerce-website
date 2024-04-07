@@ -71,13 +71,13 @@ export default function RateProduct() {
             {(!loading && product) && (
                 <div className="p-4 w-full h-screen flex flex-col items-center">
                     <h1 className="text-2xl my-4 font-semibold">Rating and Reviews</h1>
-                    <div className="flex items-center gap-4 my-4 border-2 border-gray-400 p-4 w-[42rem]">
-                        <div className="w-24 h-24">
+                    <div className="flex items-center gap-4 my-4 border-2 border-gray-400 p-4 w-full sm:w-[90%] md:w-[42rem]">
+                        <div className="w-36 h-36 sm:w-24 sm:h-24">
                             <img src={product.image[0]} alt="" className="w-full h-full object-contain" />
                         </div>
-                        <h1 className="text-xl truncate">{product.name}</h1>
+                        <h1 className="text-lg sm:text-xl truncate">{product.name}</h1>
                     </div>
-                    <div className="border-2 border-gray-400 w-[42rem] p-4">
+                    <div className="border-2 border-gray-400 w-full p-4 sm:w-[90%] md:w-[42rem]">
                         <h1 className="text-lg my-2 font-semibold">Rate this Product</h1>
                         <div className="flex gap-3 my-4">
                             {[...Array(5)].map((star, index) => (
