@@ -28,7 +28,7 @@ const App = () => {
       <Route path='/about' element={<About />} />
       <Route path='/sign-in' element={<SignIn />} />
       <Route path='/sign-up' element={<SignUp />} />
-      <Route path='/contact' element={<Contact />} />
+      
       <Route path='/product/:productId' element={<Product />} />
       <Route path='/search' element={<Search />} />
       <Route element={<PrivateRoute />}>
@@ -42,6 +42,7 @@ const App = () => {
         <Route path='/orderDetails/:OrderId' element={<OrderDetails />} />
         <Route path='/rate/:productId' element={<RateProduct />} />
         <Route path='/allOrders' element={<AllOrders />} />
+        <Route path='/contact' element={<Contact />} />
       </Route>
     </Routes>
   </BrowserRouter>
