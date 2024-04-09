@@ -242,14 +242,14 @@ export default function UpdateProduct() {
               </div>
             )}
             {!pageLoading && (
-                <div className='p-3 flex flex-col items-center bg-[#DCF2F1]'>
+                <div className='py-3 flex flex-col items-center bg-[#DCF2F1] sm:p-3'>
                     <h1 className='text-3xl text-center my-6 font-semibold'>Update Product</h1>
-                    <form onSubmit={handleSubmit} className="flex gap-8">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full sm:w-[80%] md:w-auto lg:flex-row">
                         <div className="flex flex-col gap-4 p-3">
                             <input type="text" onChange={handleChange} value={formData.name} placeholder='Name' id='name' autoComplete='off' className='p-3 rounded-lg border border-black' required />
                             <textarea id="description" onChange={handleChange} value={formData.description} placeholder='Description' cols="30" className='resize-none rounded-lg p-3 border border-black' ></textarea>
 
-                            <div className="typeCheckBox flex flex-wrap gap-6 w-[26rem]">
+                            <div className="typeCheckBox w-full flex flex-wrap gap-6 sm:w-[26rem]">
                                 <div className="flex gap-2">
                                     <input type="checkbox" onChange={handleChange} checked={formData.type === 'computer'} id='computer' className='w-5' />
                                     <span>Computer</span>
@@ -308,7 +308,7 @@ export default function UpdateProduct() {
                             <input type="text" onChange={handleChange} value={formData.waranty} id='waranty' placeholder='Waranty' className='p-3 rounded-lg border border-black' required />
                             <input type="text" onChange={handleChange} value={formData.seller} id='seller' placeholder='Seller Info' className='p-3 rounded-lg border border-black' required />
                         </div>
-                        <div className="image flex flex-col gap-4 p-3 w-[26rem]">
+                        <div className="image w-full flex flex-col gap-4 p-3 lg:w-[26rem]">
                             <div className="flex flex-col gap-4">
                                 <h3 className="">Images: The first image will be the cover</h3>
                                 <div className="flex gap-2 w-full">
@@ -319,7 +319,7 @@ export default function UpdateProduct() {
                                     <p className="text-red-700 text-sm font-semibold">{imageUploadError}</p>
                                 )}
                                 {formData.image.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 w-[24rem]">
+                                    <div className="flex w-full flex-wrap gap-2 lg:w-[24rem]">
                                         {formData.image.map((url, index) => (
                                             <div key={url} className="relative">
                                                 <img src={url} alt="" className="w-20 inline-block" />
@@ -339,7 +339,7 @@ export default function UpdateProduct() {
                                     <p className="text-red-700 text-sm font-semibold">{colorUploadError}</p>
                                 )}
                                 {formData.color.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 w-[24rem]">
+                                    <div className="flex w-full flex-wrap gap-2 lg:w-[24rem]">
                                         {formData.color.map((url, index) => (
                                             <div key={url} className="relative">
                                                 <img src={url} alt="" className="w-20 inline-block" />

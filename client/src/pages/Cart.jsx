@@ -195,13 +195,13 @@ export default function Cart() {
       {(cartData.length > 0 && !loading) && (
         <div>
 
-          <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6] min-h-[90vh]">
-            <div className="left bg-white w-[60%] flex flex-col gap-4 p-4 shadow-xl">
+          <div className="flex flex-col py-4 gap-4 items-start bg-[#f1f3f6] min-h-[90vh] md:flex-row sm:px-8 md:px-4 lg:px-8">
+            <div className="left bg-white w-full flex flex-col gap-1 py-4 shadow-xl sm:px-4 md:w-[62%] lg:w-[60%] sm:gap-4">
               {cartData.map((product, index) =>
-                <div key={index} className="product p-4 flex gap-4 bg-white ">
+                <div key={index} className="product px-2 py-4 flex gap-4 bg-white sm:px-4">
                   <div className="">
                     <Link to={`/product/${product.productId}`}>
-                      <div className="img w-36 h-36">
+                      <div className="img w-24 h-24 sm:w-36 sm:h-36">
                         <img src={product.image} alt="" className="w-full h-full object-contain" />
                       </div>
                     </Link>
@@ -212,10 +212,10 @@ export default function Cart() {
                     </div>
                     {decreaseError && <p className='absolute text-red-600 font-semibold'>{decreaseError}</p>}
                   </div>
-                  <div className="info py-2 px-4">
+                  <div className="info py-2 px-2 sm:px-4">
                     <Link to={`/product/${product.productId}`}>
                       <h1 className="text-xl">{product.name}</h1>
-                      <h1 className="text-lg font-semibold"><span className='text-sm line-through text-gray-400 mr-2'>&#8377;{product.price}</span> &#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
+                      <h1 className="text-lg font-semibold"><span className='text-sm line-through text-gray-400 mr-2'>&#8377;{(product.price).toLocaleString('en-US')}</span> &#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
                       <h1 className="text-sm">Delivery by {deliveryDate} | <span className="">{product.delivaryFee ? 'Delivery Charge ₹40' : 'FREE Delivery'}</span></h1>
                     </Link>
 
@@ -224,7 +224,7 @@ export default function Cart() {
                 </div>
               )}
             </div>
-            <div className={`right py-4 w-[25%] bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled ? 'top-[15px] fixed right-[14.5%]' : ''}`}>
+            <div className={`right py-4 w-full bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled ? 'top-[15px] md:fixed md:right-[2%] lg:right-[4%] xl:right-[14.5%]' : ''} md:w-[35%] xl:w-[25%]`}>
               <h1 className="text-xl font-semibold border-b-2 py-3 text-center">Product Details</h1>
               <div className="p-4 text-lg flex flex-col gap-4 border">
                 <div className="flex justify-between"><h1>Price ({cartData.length} itmes)</h1> <h1>&#8377;{(totalPrice.toLocaleString('en-US'))}</h1></div>

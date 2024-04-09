@@ -59,20 +59,22 @@ export default function UserProducts() {
             {(userProducts.length > 0 && !productLoading) && (
         <div>
             <h1 className='text-center text-3xl my-6 font-semibold'>Your Products</h1>
-            <div className="w-full p-8 border border-black flex flex-col gap-4">
+            <div className="w-full py-4 flex flex-col gap-4 sm:p-8">
                 {userProducts.length > 0 && userProducts.map((product) => (
-                    product.type === 'phone' || product.type === 'computer' ? (<div key={product._id} className="card flex gap-6 border border-black bg-white">
+                    product.type === 'phone' || product.type === 'computer' ? (<div key={product._id} className="card flex gap-2 bg-white sm:gap-6">
                         <Link to={`/product/${product._id}`} >
-                            <div className="left w-44 px-4 py-2">
-                                <img src={product.image[0]} alt="" className='mx-auto w-full h-full object-contain' />
+                            <div className="left w-36 px-2 py-4 sm:px-4 sm:w-44 overflow-hidden">
+                                <img src={product.image[0]} alt="" className='mx-auto w-full h-full object-contain transition-all duration-300 hover:scale-110' />
                             </div>
                         </Link>
-                        <div className="right w-[80%] px-3 py-2">
+                        <div className="right w-[80%] px-1 py-2 sm:px-3">
                             <Link to={`/product/${product._id}`}>
                                 <div className="flex justify-between">
                                     <div className="info">
-                                        <h3 className="text-xl font-semibold mb-1">{product.name}</h3>
+                                        <h3 className="text-xl font-semibold mb-1 line-clamp-2">{product.name}</h3>
                                         <h3 className='text-sm font-semibold'><span className="bg-orange-400 text-white p-1 text-xs font-semibold rounded-md">{(+product.rating).toFixed(1)}&#9733;</span> 134 Ratings & 9 Reviews</h3>
+                                        {/* some */}
+                                        <h1 className="text-lg font-semibold mt-2 md:hidden">&#8377;{(product.price).toLocaleString('US-en')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
                                         <ul className="list-none flex flex-col gap-1 pt-4">
                                             <li className="text-sm">{product.ram} RAM | {product.storage} ROM</li>
                                             <li className="text-sm">{product.processor}</li>
@@ -81,7 +83,7 @@ export default function UserProducts() {
                                             <li className="text-sm">{product.waranty} Manufacturing Warranty</li>
                                         </ul>
                                     </div>
-                                    <div className="price p-4">
+                                    <div className="price p-4 hidden md:block">
                                         <h2 className="text-2xl font-semibold">&#8377;{(product.price - Math.round(product.price * product.discount / 100)).toLocaleString('en-US')}</h2>
                                         <div className="flex gap-2 items-center">
                                             <h2 className="text-lg text-gray-500 line-through">&#8377;{product.price.toLocaleString('en-US')}</h2>
@@ -96,26 +98,28 @@ export default function UserProducts() {
                             </div>
                         </div>
                     </div>) :
-                        (<div key={product._id} className="card flex gap-6 border border-black bg-white">
+                        (<div key={product._id} className="card flex gap-2 bg-white sm:gap-6">
                             <Link to={`/product/${product._id}`}>
-                                <div className="left w-44 px-4 py-2">
-                                    <img src={product.image[0]} alt="" className='mx-auto w-full h-full object-contain' />
+                                <div className="left w-36 px-2 py-4 sm:w-44 sm:px-4 overflow-hidden">
+                                    <img src={product.image[0]} alt="" className='mx-auto w-full h-full object-contain transition-all duration-300 hover:scale-110' />
                                 </div>
                             </Link>
-                            <div className="right w-[80%] px-3 py-2">
+                            <div className="right w-[80%] px-1 py-2 sm:px-3">
                                 <Link to={`/product/${product._id}`}>
                                     <div className="flex justify-between">
                                         <div className="info">
-                                            <h3 className="text-xl font-semibold mb-1">{product.name}</h3>
+                                            <h3 className="text-xl font-semibold mb-1 line-clamp-2">{product.name}</h3>
                                             <h3 className='text-sm font-semibold'><span className="bg-orange-400 text-white p-1 text-xs font-semibold rounded-md">{(+product.rating).toFixed(1)}&#9733;</span> 134 Ratings & 9 Reviews</h3>
+                                            {/* some */}
+                                            <h1 className="text-lg font-semibold mt-2 md:hidden">&#8377;{(product.price).toLocaleString('US-en')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
                                             <ul className="list-none flex flex-col gap-1 pt-4">
-                                                <li className='text-sm w-[23rem] line-clamp-3 mb-2'>{product.description}</li>
+                                                <li className='text-sm w-full line-clamp-3 mb-2 sm:w-[23rem]'>{product.description}</li>
                                                 <li className='text-sm'>{product.camera}</li>
                                                 <li className="text-sm">{product.battery} Battery</li>
                                                 <li className="text-sm">{product.waranty} Manufacturing Warranty</li>
                                             </ul>
                                         </div>
-                                        <div className="price p-4">
+                                        <div className="price hidden p-4 md:block">
                                             <h2 className="text-2xl font-semibold">&#8377;{(product.price - Math.round(product.price * product.discount / 100)).toLocaleString('en-US')}</h2>
                                             <div className="flex gap-2 items-center">
                                                 <h2 className="text-lg text-gray-500 line-through">&#8377;{product.price.toLocaleString('en-US')}</h2>
