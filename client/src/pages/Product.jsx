@@ -164,41 +164,41 @@ export default function Product() {
   }, [cartItemError]);
 
   return (
-    <main>
+    <div>
       {loading && (
         <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff] z-50">
           <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
         </div>
       )}
       {(!loading && product) && (
-        <div className="w-full py-10 px-16 flex gap-4">
-          <div className="left w-[35%] relative">
-            <div id='left' className="flex gap-2">
+        <div className="w-full py-10 px-1 flex flex-col gap-4 sm:px-16 xl:flex-row">
+          <div className="left w-full relative xl:w-[35%]">
+            <div id='left' className="flex gap-2 justify-center md:gap-4 xl:gap-2">
               <div className="colum flex flex-col  bg-white ">
                 {product.image.length > 0 && product.image.map((url, index) =>
-                  <div key={url} className={`w-20 h-20 border-2 ${imageIndex === index ? 'border-blue-600' : ''} hover:border-2 hover:border-blue-500`}>
+                  <div key={url} className={`w-16 h-16 border-2 ${imageIndex === index ? 'border-blue-600' : ''} hover:border-2 hover:border-blue-500 sm:w-20 sm:h-20`}>
                     <img key={index} src={url} onMouseEnter={() => handelMouseEnter(url, index)} alt="" className="w-full h-full object-contain" />
                   </div>
                 )}
               </div>
-              <div className="">
-                <div className="img border border-black p-4 w-[25rem] h-[25rem] ">
+              <div className=" w-[80%] sm:w-auto md:w-full xl:w-auto">
+                <div className="img border border-black p-4 w-full sm:w-[25rem] h-[25rem] md:w-full xl:w-80 2xl:w-[25rem]">
                   <img src={showImage} alt="" className="w-full h-full object-contain" />
                 </div>
-                <div className="btn w-full flex justify-between my-4">
-                  <button disabled={cartBtnLoading} onClick={() => handleaddToCart()} className='flex justify-center items-center font-semibold uppercase gap-4 bg-[#ff9f00] text-white py-3 px-4 w-48 disabled:bg-[#e8b35e]'><IoCart className='text-xl' />{cartBtnLoading ? 'Added...' : 'Add to Cart'}</button>
-                  <Link to={`/orderCon/${product._id}`}>
-                    <button className="flex justify-center items-center font-semibold uppercase gap-4 bg-[#fb641b] text-white py-3 px-4 w-48"><IoIosGift /> Buy Now</button>
-                  </Link>
-                </div>
-                {cartItemError && (
-                  <p className="absolute text-red-600 font-semibold">{cartItemError}</p>
-                )}
               </div>
 
             </div>
+            <div className="btn w-full flex justify-center gap-2 mt-8 mb-4 sm:gap-8">
+                  <button disabled={cartBtnLoading} onClick={() => handleaddToCart()} className='flex justify-center items-center font-semibold uppercase gap-1 bg-[#ff9f00] text-white py-3 px-4 w-44 disabled:bg-[#e8b35e] sm:gap-4  sm:w-48'><IoCart className='text-xl' />{cartBtnLoading ? 'Added...' : 'Add to Cart'}</button>
+                  <Link to={`/orderCon/${product._id}`}>
+                    <button className="flex justify-center items-center font-semibold uppercase gap-1 bg-[#fb641b] text-white py-3 px-4 w-44 sm:w-48 sm:gap-4"><IoIosGift /> Buy Now</button>
+                  </Link>
+                </div>
+                {cartItemError && (
+                  <p className="absolute text-red-600 font-semibold mx-8">{cartItemError}</p>
+                )}
           </div>
-          <div className="right border border-black w-[60%] bg-white p-4">
+          <div className="right border border-black w-full bg-white p-4 xl:w-[60%]">
             <h1 className="text-xl">{product.name}</h1>
             <div className='text-sm font-semibold mt-2 text-gray-400 flex items-center gap-2'><StarRating stars={product.rating} /> 134 Ratings & 9 Reviews</div>
             <h1 className="text-3xl font-semibold mt-2">&#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className="line-through text-lg text-gray-400">&#8377;{product.price.toLocaleString('en-US')}</span> <span className="text-base font-semibold text-orange-500">{product.discount}% off</span></h1>
@@ -234,11 +234,11 @@ export default function Product() {
               <div className="my-4">
                 <h2 className="font-semibold text-gray-500 my-4">Colors:</h2>
                 <div className="flex gap-2 flex-wrap">
-                  <div className={`w-16 p-1 border-2 ${colorImageIndex === 0 ? 'border-blue-600' : ''} cursor-pointer `}>
+                  <div className={`w-20 p-1 border-2 ${colorImageIndex === 0 ? 'border-blue-600' : ''} cursor-pointer sm:w-16 md:w-20`}>
                     <img onClick={() => handleImageClick(product.image[0], -1)} src={product.image[0]} alt="" className="w-full object-contain" />
                   </div>
                   {product.color.map((url, index) =>
-                    <div key={index} className={`w-16 p-1 border-2 ${colorImageIndex === index + 1 ? 'border-blue-600' : ''} cursor-pointer`}>
+                    <div key={index} className={`w-20 p-1 border-2 ${colorImageIndex === index + 1 ? 'border-blue-600' : ''} cursor-pointer sm:w-16 md:w-20`}>
                       <img onClick={() => handleImageClick(url, index)} src={url} alt="" className=" w-full object-contain" />
                     </div>
                   )}
@@ -252,7 +252,7 @@ export default function Product() {
               </div>
               <div className="two">
                 <h1 className="flex gap-2 items-center border-b-2 border-blue-500 py-2"><FaMapMarkerAlt /> {currentUser ? currentUser.address : 'Your Address...'} <Link to='/profile' className="px-2 bg-blue-500 text-white rounded-md">Edit</Link></h1>
-                <h1 className="font-semibold">Delivery by {delivaryDate}</h1>
+                <h1 className="text-sm font-semibold sm:text-base">Delivery by {delivaryDate}</h1>
                 {product.delivaryFee ? <div className='text-sm font-semibold text-gray-600 flex gap-1 items-center'>Delivary Charge 	&#8377;40 <FaTruckFast className='text-base' /></div> : <div className='text-sm font-semibold text-gray-500 flex gap-1 items-center'>FREE <span className='line-through'>&#8377;40</span><FaTruckFast className='text-base' /></div>}
               </div>
             </div>
@@ -288,9 +288,9 @@ export default function Product() {
             </div>
 
             <div className="rattings">
-              <h1 className="text-2xl my-4 font-semibold">Rattings and Reviews</h1>
-              <div className="flex">
-                <div className="left border border-black w-1/2 p-3 flex">
+              <h1 className="text-2xl my-4 font-semibold">Ratings and Reviews</h1>
+              <div className="flex flex-col md:flex-row">
+                <div className="left border border-black w-full p-1 flex md:w-1/2 sm:p-3">
                   <div className="">
                     <h1 className="text-3xl text-gray-800">{(+product.rating).toFixed(1)}&#9733;</h1>
                     <h1 className="text-lg my-2">134 Rattings & 9 Reviews</h1>
@@ -303,7 +303,7 @@ export default function Product() {
                     <LineProgressBar rating={0.5} stareValue={1} />
                   </div>
                 </div>
-                <div className="right border border-black w-1/2 flex justify-around">
+                <div className="right border border-black w-full flex justify-around md:w-1/2">
                   <CircularProgressBar rating={4.5} title={"Camera"} />
                   <CircularProgressBar rating={4.2} title={"Battery"} />
                   <CircularProgressBar rating={4} title={"Display"} />
@@ -320,12 +320,12 @@ export default function Product() {
         </div>
       )}
       <h1 className="text-2xl font-semibold px-6 py-2">Similar Items</h1>
-      <div id='lastDiv' className="px-4 py-2 flex gap-4 justify-center ">
+      <div id='lastDiv' className="px-2 py-2 flex gap-2 justify-start flex-wrap sm:gap-4 sm:px-4 2xl:justify-center">
       {(!loading && similarProduct) && (
         similarProduct.map((product, index)=>
-        <Link to={`/product/${product._id}`} key={index}>
-          <div className="card w-40 h-full shadow-xl border rounded-md overflow-hidden">
-            <div className="img w-full h-32 overflow-hidden">
+        <Link to={`/product/${product._id}`} key={index} className='w-[48%] sm:w-[31%] md:w-[23%] lg:w-[18.5%] xl:w-[15.5%] 2xl:w-auto'>
+          <div className="card w-full h-full shadow-xl border rounded-md overflow-hidden 2xl:w-40">
+            <div className="img w-full overflow-hidden">
               <img src={product.image[0]} alt="" className='w-full h-full object-contain transition-all duration-300 hover:scale-105' />
             </div>
             <h1 className="px-2 py-1 line-clamp-3">{product.name}</h1>
@@ -336,6 +336,6 @@ export default function Product() {
       )}
       </div>
       <Footer />
-    </main>
+    </div>
   )
 }

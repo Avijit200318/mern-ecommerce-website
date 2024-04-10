@@ -50,7 +50,7 @@ export default function UserProducts() {
     };
 
     return (
-        <main>
+        <div>
             {productLoading && (
                 <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff]">
                 <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
@@ -140,6 +140,6 @@ export default function UserProducts() {
         </div>
             )}
             <Footer />
-        </main>
+        </div>
     )
 }
