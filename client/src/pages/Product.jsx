@@ -181,8 +181,8 @@ export default function Product() {
                   </div>
                 )}
               </div>
-              <div className=" w-[80%] sm:w-auto md:w-full xl:w-auto">
-                <div className="img border border-black p-4 w-full sm:w-[25rem] h-[25rem] md:w-full xl:w-80 2xl:w-[25rem]">
+              <div className=" w-[80%] border sm:w-auto md:w-full xl:w-auto">
+                <div className="img p-4 w-full sm:w-[25rem] h-[25rem] md:w-full xl:w-80 2xl:w-[25rem]">
                   <img src={showImage} alt="" className="w-full h-full object-contain" />
                 </div>
               </div>
@@ -198,7 +198,7 @@ export default function Product() {
                   <p className="absolute text-red-600 font-semibold mx-8">{cartItemError}</p>
                 )}
           </div>
-          <div className="right border border-black w-full bg-white p-4 xl:w-[60%]">
+          <div className="right border w-full bg-white p-4 xl:w-[60%]">
             <h1 className="text-xl">{product.name}</h1>
             <div className='text-sm font-semibold mt-2 text-gray-400 flex items-center gap-2'><StarRating stars={product.rating} /> 134 Ratings & 9 Reviews</div>
             <h1 className="text-3xl font-semibold mt-2">&#8377;{Math.round((product.price - (product.price * product.discount / 100))).toLocaleString('en-US')} <span className="line-through text-lg text-gray-400">&#8377;{product.price.toLocaleString('en-US')}</span> <span className="text-base font-semibold text-orange-500">{product.discount}% off</span></h1>
@@ -290,7 +290,7 @@ export default function Product() {
             <div className="rattings">
               <h1 className="text-2xl my-4 font-semibold">Ratings and Reviews</h1>
               <div className="flex flex-col md:flex-row">
-                <div className="left border border-black w-full p-1 flex md:w-1/2 sm:p-3">
+                <div className="left border w-full p-1 flex md:w-1/2 sm:p-3">
                   <div className="">
                     <h1 className="text-3xl text-gray-800">{(+product.rating).toFixed(1)}&#9733;</h1>
                     <h1 className="text-lg my-2">134 Rattings & 9 Reviews</h1>
@@ -303,7 +303,7 @@ export default function Product() {
                     <LineProgressBar rating={0.5} stareValue={1} />
                   </div>
                 </div>
-                <div className="right border border-black w-full flex justify-around md:w-1/2">
+                <div className="right border w-full flex justify-around md:w-1/2">
                   <CircularProgressBar rating={4.5} title={"Camera"} />
                   <CircularProgressBar rating={4.2} title={"Battery"} />
                   <CircularProgressBar rating={4} title={"Display"} />

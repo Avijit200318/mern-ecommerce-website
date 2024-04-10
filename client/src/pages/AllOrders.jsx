@@ -44,18 +44,18 @@ export default function AllOrders() {
             {(!loading && orders) && (
                 <div className="">
                     <h1 className="my-4 text-2xl font-semibold text-center">Orders from All Users</h1>
-                    <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6] min-h-[90vh]">
-                        <div className="left bg-white w-full flex flex-col gap-4 p-4 shadow-xl">
+                    <div className="flex py-4 gap-4 items-start bg-[#f1f3f6] min-h-[90vh]  sm:px-8 md:px-4 lg:px-8">
+                        <div className="left bg-white w-full flex flex-col gap-1 py-4 shadow-xl sm:px-4 sm:gap-4">
                             {orders.map((product, index) =>
-                                <div key={index} className="product p-4 flex gap-4 bg-white ">
+                                <div key={index} className="product px-2 py-4 flex gap-4 bg-white sm:px-4">
                                     <div className="">
                                         <Link to={`/orderDetails/${product._id}`}>
-                                            <div className="img w-36 h-36">
+                                            <div className="img w-24 h-24 sm:w-36 sm:h-36">
                                                 <img src={product.image} alt="" className="w-full h-full object-contain" />
                                             </div>
                                         </Link>
                                     </div>
-                                    <div className="info py-2 px-4">
+                                    <div className="info py-2 px-2 sm:px-4">
                                         <Link to={`/orderDetails/${product._id}`}>
                                             <h1 className="text-xl">{product.name}</h1>
                                             <h1 className="text-lg font-semibold">&#8377;{(product.price).toLocaleString('US-en')} <span className='text-sm text-orange-500 mx-2'>{product.discount}% off</span></h1>
@@ -66,7 +66,7 @@ export default function AllOrders() {
                                             </ul>
                                             <h1 className="text-sm my-2">Delivery by <span className="font-semibold">{product.delivaryDate}</span></h1>
                                         </Link>
-                                        <div className="flex items-center justify-between w-60">
+                                        <div className="fflex items-center justify-between w-48 sm:w-60">
                                             {product.step === 4 && (
                                                 <h1 className="font-semibold text-[#fbd616]">Completed</h1>
                                             )}
@@ -76,7 +76,7 @@ export default function AllOrders() {
                                             {product.step === -1 && (
                                                 <h1 className="font-semibold text-red-700">Cancled</h1>
                                             )}
-                                            
+
                                         </div>
                                     </div>
                                 </div>

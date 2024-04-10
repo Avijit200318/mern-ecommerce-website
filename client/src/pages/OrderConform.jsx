@@ -189,11 +189,11 @@ export default function OrderConform() {
         </div>
       )}
       {productData && (
-        <div className="flex py-4 px-8 gap-4 items-start bg-[#f1f3f6] min-h-[90vh]">
-          <div className="left bg-white w-[60%] flex flex-col gap-4 py-6 px-4 shadow-xl">
+        <div className="flex flex-col py-4 gap-4 items-start bg-[#f1f3f6] min-h-[90vh] md:flex-row sm:px-8 md:px-4 lg:px-8">
+          <div className="left bg-white w-full flex flex-col gap-4 py-6 px-2 shadow-xl sm:px-4 md:w-[62%] lg:w-[60%] sm:gap-4">
             <h1 className="text-center text-2xl font-semibold">Check Details</h1>
             <div className="box flex justify-center">
-              <form className='flex flex-col gap-2 border-gray-400 border-2 p-8 w-[70%] rounded-lg'>
+              <form className='flex flex-col gap-2 border-gray-400 border-2 py-8 px-4 w-full rounded-lg sm:w-[70%] md:w-full lg:w-[80%] xl:w-[70%] sm:p-8'>
                 <div className="flex flex-col gap-2">
                   <label className='text-lg font-semibold'>Shipping Address</label>
                   <textarea name="" id="address" cols="30" placeholder='Address' defaultValue={orderData.address} onChange={handleChange} required className='border border-black rounded-lg px-4 py-2' autoComplete='off'></textarea>
@@ -222,18 +222,18 @@ export default function OrderConform() {
             </div>
             <div className="">
               <h1 className="text-2xl text-center border-t-2 border-b-2 border-gray-500 font-semibold py-2 my-4">Payment Method</h1>
-              <div className="w-[70%] mx-auto flex flex-col gap-4 items-center my-8 border border-gray-600 py-6 rounded-lg">
-                <h3 className="w-[60%] px-2 font-semibold">Select your payment method*</h3>
-                <div className='border border-gray-500 px-4 py-3 text-lg font-semibold w-[60%] rounded-md'>
+              <div className="w-full mx-auto flex flex-col gap-4 items-center my-8 border border-gray-600 py-6 rounded-lg sm:w-[70%] md:w-full lg:w-[90%] xl:w-[70%]">
+                <h3 className="w-[90%] px-2 font-semibold md:w-[60%]">Select your payment method*</h3>
+                <div className='border border-gray-500 px-4 py-3 text-lg font-semibold w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] rounded-md'>
                   <label htmlFor='COD' className="w-full flex gap-4">
                     <input onChange={handlePaymentChange} type="radio" checked={orderData.paymentStatus === 'COD'} name="method" id='COD' value="cod" />
                     <span>Cash On Delivary</span>
                   </label>
                 </div>
-                <div className='border border-gray-500 px-4 py-3 text-lg font-semibold w-[60%] rounded-md flex'>
-                  <label htmlFor='complete' className="w-full flex gap-4">
+                <div className='border border-gray-500 px-4 py-3 text-lg font-semibold w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] rounded-md flex'>
+                  <label htmlFor='complete' className="w-full flex gap-2 sm:gap-4">
                     <input onChange={handlePaymentChange} type="radio" checked={orderData.paymentStatus === 'complete'} name="method" id='complete' value="cod" />
-                    <span>Credit Card / Debit Card</span>
+                    <span className='truncate'>Credit Card / Debit Card</span>
                   </label>
                   <img src={CardImg} alt="" className="h-6" />
                 </div>
@@ -244,7 +244,7 @@ export default function OrderConform() {
               </div>
             </div>
           </div>
-          <div className={`right py-4 w-[25%] bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled ? 'top-[15px] fixed right-[14.5%]' : ''}`}>
+          <div className={`right py-4 w-full bg-white flex flex-col  shadow-md transition-all duration-400 ${isScrolled ? 'top-[15px] md:fixed md:right-[2%] lg:right-[4%] xl:right-[14.5%]' : ''} md:w-[35%] xl:w-[25%]`}>
             <h1 className="text-xl font-semibold border-b-2 py-3 text-center">Order Details</h1>
             <div className="p-4 text-lg flex flex-col gap-4 border">
               <div className="flex justify-between"><h1>Price </h1> <h1>&#8377;{productData.price.toLocaleString('en-US')}</h1></div>
