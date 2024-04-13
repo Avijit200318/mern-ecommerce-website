@@ -146,11 +146,11 @@ export default function OrderDetails() {
         </div>
       )}
       {orderData && (
-        <div className="px-16">
+        <div className="px-2 sm:px-0 lg:px-16">
           <h1 className="text-2xl text-center font-semibold my-6">Order Details</h1>
           <Link to={`/product/${orderData.productId}`}>
-            <div className="flex p-8">
-              <div className="left w-[60%] py-4 px-10 border">
+            <div className="flex flex-col-reverse items-center px-2 py-8 lg:p-8 sm:flex-row sm:items-stretch">
+              <div className="left w-full py-4 px-4 sm:w-[60%] sm:px-10 sm:border">
                 <h1 className="text-2xl">{orderData.name}</h1>
                 <h1 className="text-xl my-4 flex items-center gap-4 font-semibold">	&#8377;{(orderData.price).toLocaleString('US-en')} <span className="text-base font-semibold text-orange-500">%{orderData.discount} off</span></h1>
                 <h1 className="font-semibold my-4">Payment : {orderData.paymentStatus}</h1>
@@ -161,7 +161,7 @@ export default function OrderDetails() {
                 </ul>
                 <h1 className="font-semibold my-3 text-red-700">Deliveried by : {orderData.delivaryDate}</h1>
               </div>
-              <div className="right w-[40%] flex items-center border justify-center">
+              <div className="right w-[60%] flex items-center justify-center sm:w-[40%] sm:border">
                 <div className="w-52 h-52">
                   <img src={orderData.image} alt="" className="w-full h-full object-contain" />
                 </div>
@@ -169,8 +169,8 @@ export default function OrderDetails() {
             </div>
           </Link>
 
-          <div className={`progress px-10 ${step === -1 ? 'h-40' : 'h-80'} flex flex-col justify-between relative z-10 mx-8`}>
-            <div className={`absolute border ${step === -1 ? 'h-40 bg-red-600' : 'h-80 bg-gray-200'} w-[8px] top-0 left-[55px] `}>
+          <div className={`progress px-2 ${step === -1 ? 'h-40' : 'h-80'} flex flex-col justify-between relative z-10 mx-2 sm:mx-8 sm:px-10`}>
+            <div className={`absolute border ${step === -1 ? 'h-40 bg-red-600' : 'h-80 bg-gray-200'} w-[8px] top-0 left-[25px] sm:left-[55px] `}>
               <div style={{ height: `${progressHeight}%` }} className={`progress w-full ${step === -1 ? 'bg-red-600' : 'bg-[#fbd616]'} transition-all duration-500`}></div>
             </div>
             <div className="flex gap-8 items-center relative z-20">
@@ -217,7 +217,7 @@ export default function OrderDetails() {
               </div>
             )}
           </div>
-          <div className="flex gap-8 mt-10 ml-20 mb-6">
+          <div className="flex gap-8 mt-10 mb-6 justify-center sm:justify-start sm:ml-20">
             <button onClick={handleCancleOrder} className="px-4 py-2 bg-[#52D3D8] rounded-md w-32">Cancel</button>
             <button className="px-4 py-2 bg-[#52D3D8] rounded-md w-32">Need help?</button>
           </div>

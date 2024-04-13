@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function ProductCards({ product }) {
     return (
-        <div>
+        <div className=''>
             <Link to={`/product/${product._id}`}>
                 <div className="border border-black  w-64 p-3 flex flex-col gap-3 overflow-hidden">
                     <div className="left h-60 w-full flex justify-center overflow-hidden">
