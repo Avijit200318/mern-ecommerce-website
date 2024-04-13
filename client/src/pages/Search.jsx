@@ -99,9 +99,9 @@ export default function Search() {
 
     return (
         <div>
-            <div className="flex w-full">
-                <div className="left w-[30%] h-full border border-black py-4 px-4">
-                    <form onSubmit={handleSubmit} className="py-4 flex flex-col gap-6 px-4">
+            <div className="flex flex-col w-full lg:flex-row">
+                <div className="left w-full h-full border border-black py-4 px-2 lg:w-[30%] sm:px-4 lg:px-0 xl:px-4">
+                    <form onSubmit={handleSubmit} className="py-4 flex flex-col gap-6 px-2 sm:px-4">
                         <div className="flex gap-3 items-center">
                             <label className='text-xl'>Search Term:</label>
                             <input type="text" id='searchTerm' onChange={handleChange} value={sideBarData.searchTerm} className="border border-black px-4 py-2 rounded-md w-[60%]" placeholder='Search' />
@@ -162,9 +162,9 @@ export default function Search() {
                         <button className="w-full py-2 px-4 bg-blue-600 text-white text-lg rounded-md font-semibold transition-all duration-300 hover:bg-blue-500 disabled:bg-blue-500">Search</button>
                     </form>
                 </div>
-                <div className="right w-[70%] h-full border border-black p-2">
-                    <h1 className="text-2xl my-4">Search Results</h1>
-                    <div className="flex gap-1 flex-wrap justify-start">
+                <div className="right w-full h-full border border-black sm:p-2 lg:w-[70%]">
+                    <h1 className="text-2xl my-4 text-center md:text-start">Search Results</h1>
+                    <div className="flex gap-1 flex-wrap justify-start sm:gap-1">
                         {loading && (
                             <div className="w-full h-full top-0 left-0 absolute flex justify-center items-center bg-[#0197ff]">
                                 <div className="border-8 border-t-8 border-t-white border-gray-300 rounded-full h-16 w-16 animate-spin"></div>
