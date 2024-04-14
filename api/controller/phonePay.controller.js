@@ -33,7 +33,7 @@ export const payment = async (req, res, next) => {
     let sha256_val = sha256(string);
     let checksum = sha256_val + '###' + saltIndex;
 
-    const response = await axios.post('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay', {
+    const response = await axios.get('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay', {
       'request': base64String
     }, {
       headers: {
