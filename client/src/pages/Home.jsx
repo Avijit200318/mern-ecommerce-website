@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 import { Navigation, Autoplay } from "swiper/modules";
 import SwiperCore from "swiper";
-import ProductCards from '../components/ProductCards';
+import HomePageProductCards from '../components/HomePageProductCards';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 
@@ -134,19 +134,50 @@ export default function Home() {
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 1,
+    // initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 1023,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 639,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      }
+    ]
   };
 
   const CustomPrevArrow = (props) => {
     const { onClick } = props;
     return (
-      <button onClick={onClick} className="prev-arrow border h-20 cursor-pointer text-3xl rounded-md px-2 shadow-2xl absolute left- 0 z-20 bg-white opacity-90 hover:opacity-100"><IoIosArrowBack /></button>
+      <button onClick={onClick} className="prev-arrow border h-20 cursor-pointer text-2xl rounded-md px-2 shadow-2xl absolute left- 0 z-20 bg-white opacity-90 hover:opacity-100 sm:text-3xl"><IoIosArrowBack /></button>
     );
   };
 
   const CustomNextArrow = (props) => {
     const { onClick } = props;
     return (
-      <button onClick={onClick} className="next-arrow border h-20 cursor-pointer text-3xl rounded-md px-2 shadow-3xl absolute right-0 z-20 bg-white opacity-90 hover:opacity-100"><IoIosArrowForward /></button>
+      <button onClick={onClick} className="next-arrow border h-20 cursor-pointer text-2xl rounded-md px-2 shadow-3xl absolute right-0 z-20 bg-white opacity-90 hover:opacity-100 sm:text-3xl"><IoIosArrowForward /></button>
     )
   };
 
@@ -160,84 +191,84 @@ export default function Home() {
       )}
       {loading === false && (
         <div className=''>
-          <Swiper modules={[Navigation]} spaceBetween={50} slidesPerView={1} navigation={true} autoplay={{ delay: 5000, disableOnInteraction: false }} loop={true} loopedslides={1}>
+          <Swiper modules={[Navigation]} spaceBetween={50} slidesPerView={1} navigation={true} autoplay={{ delay: 5000, disableOnInteraction: false }} loop={true} loopedslides={1} >
             {
               slides.map((slide, index) => (
                 <SwiperSlide key={index}>
-                  <div style={{ background: `url(${slide.url}) center no-repeat`, backgroundSize: 'cover' }} className="h-[250px] sm:h-[350px]" key={index}></div>
+                  <div style={{ background: `url(${slide.url}) center no-repeat`, backgroundSize: 'cover' }} className="h-[38vw] lg:h-[30vw] xl:h-[350px]" key={index}></div>
                 </SwiperSlide>
               ))
             }
           </Swiper>
 
-          <div className="p-4 bg-white relative shadow-lg">
+          <div className="py-4 bg-white relative shadow-lg sm:p-4">
             <div className="flex gap-4 items-center mb-2">
-              <h1 className="text-2xl font-semibold px-1">Today's Deals</h1>
-              <Link to='/search?type=phone' className='text-blue-500 font-semibold block text-lg'>See all Deals</Link>
+              <h1 className="text-xl font-semibold px-1 sm:text-2xl">Today's Deals</h1>
+              <Link to='/search?type=phone' className='text-blue-500 font-semibold block sm:text-lg'>See all Deals</Link>
             </div>
             <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />} className='flex gap-1 items-center'>
               {phones.map((phone) =>
-                <ProductCards key={phone._id} product={phone} />
+                <HomePageProductCards key={phone._id} product={phone} />
               )}
             </Slider>
           </div>
 
-          <div className="p-4 my-6 bg-white relative shadow-lg">
+          <div className="py-4 my-6 bg-white relative shadow-lg sm:p-4">
             <div className="flex gap-4 items-center mb-2">
-              <h1 className="text-2xl font-semibold px-1">Best Deals in Laptops</h1>
-              <Link to='/search?type=computer' className='text-blue-500 font-semibold block text-lg'>See all Deals</Link>
+              <h1 className="text-xl font-semibold px-1 sm:text-2xl">Best Deals in Laptops</h1>
+              <Link to='/search?type=computer' className='text-blue-500 font-semibold block sm:text-lg'>See all Deals</Link>
             </div>
             <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />} className='flex gap-1 items-center'>
               {laptops.map((laptop) =>
-                <ProductCards key={laptop._id} product={laptop} />
+                <HomePageProductCards key={laptop._id} product={laptop} />
               )}
             </Slider>
           </div>
 
-          <div className="p-4 my-6 bg-white relative shadow-lg">
+          <div className="py-4 my-6 bg-white relative shadow-lg sm:p-4">
             <div className="flex gap-4 items-center mb-2">
-              <h1 className="text-2xl font-semibold px-1">Best Deals in Camera</h1>
-              <Link to='/search?type=camera' className='text-blue-500 font-semibold block text-lg'>See all Deals</Link>
+              <h1 className="text-xl font-semibold px-1 sm:text-2xl">Best Deals in Camera</h1>
+              <Link to='/search?type=camera' className='text-blue-500 font-semibold block sm:text-lg'>See all Deals</Link>
             </div>
             <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />} className='flex gap-1 items-center'>
               {camera.map((camera) =>
-                <ProductCards key={camera._id} product={camera} />
+                <HomePageProductCards key={camera._id} product={camera} />
               )}
             </Slider>
           </div>
 
-          <div className="p-4 my-6 bg-white relative shadow-lg">
+          <div className="py-4 my-6 bg-white relative shadow-lg p-4">
             <div className="flex gap-4 items-center mb-2">
-              <h1 className="text-2xl font-semibold px-1">Best Deals in Bags</h1>
-              <Link to='/search?type=bag' className='text-blue-500 font-semibold block text-lg'>See all Deals</Link>
+              <h1 className="text-xl font-semibold px-1 sm:text-2xl">Best Deals in Bags</h1>
+              <Link to='/search?type=bag' className='text-blue-500 font-semibold block sm:text-lg'>See all Deals</Link>
             </div>
             <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />} className='flex gap-1 items-center'>
               {bags.map((bag) =>
-                <ProductCards key={bag._id} product={bag} />
+                <HomePageProductCards key={bag._id} product={bag} />
               )}
             </Slider>
           </div>
 
-          <div className="p-4 my-6 bg-white relative shadow-lg">
+          <div className="py-4 my-6 bg-white relative shadow-lg p-4">
             <div className="flex gap-4 items-center mb-2">
-              <h1 className="text-2xl font-semibold px-1">Best Deals in Boots</h1>
-              <Link to='/search?type=boots' className='text-blue-500 font-semibold block text-lg'>See all Deals</Link>
+              <h1 className="text-xl font-semibold px-1 sm:text-2xl">Best Deals in Boots</h1>
+              <Link to='/search?type=boots' className='text-blue-500 font-semibold block sm:text-lg'>See all Deals</Link>
             </div>
             <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />} className='flex gap-1 items-center'>
               {boots.map((boot) =>
-                <ProductCards key={boot._id} product={boot} />
+                <HomePageProductCards key={boot._id} product={boot} />
               )}
             </Slider>
           </div>
 
-          <div className="p-4 my-6 bg-white relative shadow-lg">
+          <div className="py-4 my-6 bg-white relative shadow-lg p-4">
             <div className="flex gap-4 items-center mb-2">
-              <h1 className="text-2xl font-semibold px-1">Best Deals in Headsets</h1>
-              <Link to='/search?type=headset' className='text-blue-500 font-semibold block text-lg'>See all Deals</Link>
+              <h1 className="text-xl font-semibold px-1 sm:text-2xl">Best Deals in Headsets</h1>
+              <Link to='/search?type=headset' className='text-blue-500 font-semibold block sm:text-lg'>See all Deals</Link>
             </div>
             <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />} className='flex gap-1 items-center'>
               {headSet.map((headset) =>
-                <ProductCards key={headset._id} product={headset} />
+                <HomePageProductCards key={headset._id} product={headset} />
               )}
             </Slider>
           </div>

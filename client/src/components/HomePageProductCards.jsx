@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-export default function ProductCards({ product }) {
-    return (
-        <div className='w-[49%] shadow-lg sm:w-[32.9%] md:w-[24.6%] lg:w-[32.9%] 2xl:w-auto'>
+export default function HomePageProductCards({ product }) {
+  return (
+    <div className='w-full shadow-lg 2xl:w-auto'>
             <Link to={`/product/${product._id}`}>
                 <div className="border w-full p-3 flex flex-col gap-3 overflow-hidden 2xl:w-64 sm:p-3">
                     <div className="left h-40 w-full flex justify-center overflow-hidden lg:h-60">
@@ -18,5 +18,5 @@ export default function ProductCards({ product }) {
                 </div>
             </Link>
         </div>
-    )
+  )
 }
