@@ -15,7 +15,7 @@ export const payment = async (req, res, next) => {
       "amount": req.body.price * 100,
       "redirectUrl": "https://mern-ecommerce-website-mh4p.onrender.com/order",
       "redirectMode": "GET",
-      "callbackUrl": "http://localhost:5173",
+      "callbackUrl": "https://mern-ecommerce-website-mh4p.onrender.com/order",
       "mobileNumber": "9999999999",
       "paymentInstrument": {
         "type": "PAY_PAGE"
@@ -43,7 +43,7 @@ export const payment = async (req, res, next) => {
       }
     });
 
-    // console.log(response.data);
+    
     return res.status(200).json(response.data);
   } catch (error) {
     console.error('Error during payment:', error);

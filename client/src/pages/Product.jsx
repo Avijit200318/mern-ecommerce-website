@@ -39,6 +39,7 @@ export default function Product() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scroll(0, 0);
     const fetchProductData = async () => {
       try {
         setLoading(true);
