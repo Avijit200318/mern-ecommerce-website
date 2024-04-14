@@ -40,6 +40,7 @@ export default function UpdateProduct() {
     const [pageLoading, setPageLoading] = useState(false);
 
     useEffect(() => {
+        window.scroll(0, 0);
         const fetchProduct = async () => {
             setPageLoading(true);
             const productId = params.productId;

@@ -12,6 +12,7 @@ export default function UserProducts() {
     // console.log("userProduct details -", userProducts);
 
     useEffect(() => {
+        window.scroll(0, 0);
         const fetchProducts = async () => {
             try {
                 setProductLoading(true);

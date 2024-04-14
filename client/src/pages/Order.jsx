@@ -15,6 +15,7 @@ export default function Order() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    window.scroll(0, 0);
     const fetchOrderData = async () => {
       try {
         setLoading(true);

@@ -1,5 +1,5 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject } from 'firebase/storage';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -211,6 +211,10 @@ export default function CreateProduct() {
             console.error("Error deleting file:", error);
         }
     };
+
+    useEffect(()=> {
+        window.scroll(0, 0);
+    }, [])
 
     return (
         <div>

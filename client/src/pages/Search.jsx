@@ -51,6 +51,7 @@ export default function Search() {
     };
 
     useEffect(() => {
+        window.scroll(0, 0);
         const urlParams = new URLSearchParams(location.search);
         const searchTermFromUrl = urlParams.get('searchTerm');
         const typeFromUrl = urlParams.get('type');

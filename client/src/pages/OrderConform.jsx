@@ -34,6 +34,7 @@ export default function OrderConform() {
   // console.log("delivery charge ", deliveryCharge);
 
   useEffect(() => {
+    window.scroll(0, 0);
     const fetchProductData = async () => {
       try {
         setLoading(true);

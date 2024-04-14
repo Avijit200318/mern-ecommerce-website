@@ -10,6 +10,7 @@ export default function AllOrders() {
 
 
     useEffect(() => {
+        window.scroll(0, 0);
         const fetchAllOrders = async () => {
             try {
                 setLoading(true);

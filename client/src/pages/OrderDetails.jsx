@@ -14,6 +14,7 @@ export default function OrderDetails() {
   const [orderDate, setOrderDate] = useState(null);
   const [progressHeight, setProgressHeight] = useState(0);
   useEffect(() => {
+    window.scroll(0, 0);
     const fetchOrderData = async () => {
       try {
         setLoading(true);

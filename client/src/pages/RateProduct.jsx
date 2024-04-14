@@ -13,6 +13,7 @@ export default function RateProduct() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        window.scroll(0, 0);
         const fetchProduct = async () => {
             try {
                 setLoading(true);
