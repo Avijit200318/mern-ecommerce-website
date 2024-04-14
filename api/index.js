@@ -8,6 +8,7 @@ import productRouter from "./routes/product.route.js";
 import cartRouter from "./routes/cart.route.js";
 import orderRouter from "./routes/order.route.js";
 import paymentRouter from "./routes/phonePay.js";
+import path from "path";
 
 
 dotenv.config();
@@ -23,6 +24,8 @@ mongoose.connect(process.env.MONGO).then(()=> {
     console.log(error);
 })
 
+const __dirname = path.resolve();
+
 app.listen(3000, ()=> {
     console.log("server is running at port 3000");
 })
@@ -35,6 +38,12 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/payment", paymentRouter);
 
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 // error handle middelware
 app.use((err, req, res, next) => {
