@@ -29,7 +29,8 @@ export default function Payment({ price, name, handleCardPayOrder, orderData }) 
         }
         // console.log(data);
         await handleCardPayOrder();
-        window.location.href = data.data.instrumentResponse.redirectInfo.url;
+        // window.location.href = data.data.instrumentResponse.redirectInfo.url;
+        window.location.href = "https://mern-ecommerce-website-mh4p.onrender.com/order";
       } catch (error) {
         console.log(error.message);
       }
