@@ -5,7 +5,7 @@ export default function HomePageProductCards({ product }) {
   return (
     <div className='w-full shadow-lg 2xl:w-auto'>
             <Link to={`/product/${product._id}`}>
-                <div className="border w-full p-3 flex flex-col gap-3 overflow-hidden 2xl:w-64 sm:p-3">
+                <div className="w-full p-3 flex flex-col gap-3 overflow-hidden 2xl:w-64 sm:p-3">
                     <div className="left h-40 w-full flex justify-center overflow-hidden lg:h-60">
                         <img src={product.image[0]} alt="" className="w-full h-full object-contain transition-all duration-300 hover:scale-110" />
                     </div>

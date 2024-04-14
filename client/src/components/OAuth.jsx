@@ -34,7 +34,7 @@ export default function OAuth() {
     }
 
   return (
-    <button type='button' onClickCapture={handleGoogleClick} className='border-2 border-black flex justify-center items-center gap-4 p-[0.3rem] rounded-lg overflow-hidden transition-all duration-300 hover:rounded-full'>
+    <button type='button' onClickCapture={handleGoogleClick} className='border sm:border-2 border-black flex justify-center items-center gap-4 p-[0.3rem] rounded-lg overflow-hidden transition-all duration-300 hover:rounded-full'>
         <img src={googleLogo} alt="" className="w-8" />
         <h3 className='text-xl font-semibold'>Google</h3>
     </button>
