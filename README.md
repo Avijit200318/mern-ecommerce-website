@@ -1,5 +1,7 @@
 # NovaMart
 
+**Live Link:** https://mern-ecommerce-website-mh4p.onrender.com/
+
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ![image](https://github.com/Avijit200318/mern-ecommerce-website/assets/136997678/1e90b24e-12f6-41e4-8447-ea3d34b5d51b)
