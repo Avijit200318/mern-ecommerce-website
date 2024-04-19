@@ -304,11 +304,13 @@ export default function Product() {
                     <LineProgressBar rating={0.5} stareValue={1} />
                   </div>
                 </div>
+                {(product.type === 'phone' || product.type === 'computer' || product.type === 'camera') && (
                 <div className="right border w-full flex justify-around md:w-1/2">
                   <CircularProgressBar rating={4.5} title={"Camera"} />
                   <CircularProgressBar rating={4.2} title={"Battery"} />
                   <CircularProgressBar rating={4} title={"Display"} />
                 </div>
+                )}
               </div>
               {(currentUser && currentUser.admin === 'yes') && (
                 <Link to={`/rate/${product._id}`}>
