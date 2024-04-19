@@ -2,6 +2,8 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
+![image](https://github.com/Avijit200318/mern-ecommerce-website/assets/136997678/1e90b24e-12f6-41e4-8447-ea3d34b5d51b)
+
 ## Overview
 
 Briefly describe your eCommerce project here. Explain what it does, its main features, and why someone would want to use it. Include any key technologies or frameworks you've used.
