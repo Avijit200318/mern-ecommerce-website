@@ -11,7 +11,6 @@ NovaMart is your ultimate destination for all your online shopping needs. Built 
 ## Table of Contents
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
