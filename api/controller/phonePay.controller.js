@@ -52,5 +52,5 @@ export const payment = async (req, res, next) => {
 };
 
 export const payRedirect = async (req, res, next) => {
-  return res.redirect("http://localhost:5173/order");
+  return res.redirect("https://mern-ecommerce-website-mh4p.onrender.com/order");
 }
