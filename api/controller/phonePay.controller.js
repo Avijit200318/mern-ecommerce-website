@@ -13,9 +13,9 @@ export const payment = async (req, res, next) => {
       "merchantTransactionId": tx_uuid,
       "merchantUserId": "MUID123",
       "amount": req.body.price * 100,
-      "redirectUrl": `http://localhost:3000/api/payment/redirect`,
+      "redirectUrl": `/api/payment/redirect`,
       "redirectMode": "POST",
-      "callbackUrl": `http://localhost:3000/api/payment/redirect`,
+      "callbackUrl": `/api/payment/redirect`,
       "mobileNumber": "9999999999",
       "paymentInstrument": {
         "type": "PAY_PAGE"
