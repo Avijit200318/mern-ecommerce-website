@@ -82,6 +82,7 @@ export default function Product() {
   }, [params.productId]);
 
   useState(() => {
+    window.scroll(0, 0);
     const handleDelivaryDate = () => {
       const today = new Date();
 

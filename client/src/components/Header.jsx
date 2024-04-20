@@ -69,7 +69,7 @@ export default function Header() {
   }
 
   return (
-    <header id='header' className='relative'>
+    <header id='header' className='relative overflow-hidden sm:overflow-visible'>
       <div className="px-2 flex w-full justify-between items-center bg-[#0d6efd] sm:px-10 py-2">
         <div className="flex gap-1 items-center w-[70%] sm:gap-12">
           <div className="nameLogo flex items-center">

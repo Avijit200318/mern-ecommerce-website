@@ -49,7 +49,10 @@ export default function Search() {
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`);
     };
-
+    useEffect(()=> {
+        window.scroll(0, 0);
+    },[]);
+    
     useEffect(() => {
         window.scroll(0, 0);
         const urlParams = new URLSearchParams(location.search);
