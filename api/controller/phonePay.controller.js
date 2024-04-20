@@ -13,9 +13,9 @@ export const payment = async (req, res, next) => {
       "merchantTransactionId": tx_uuid,
       "merchantUserId": "MUID123",
       "amount": req.body.price * 100,
-      "redirectUrl": `/api/payment/redirect`,
+      "redirectUrl": `https://mern-ecommerce-website-mh4p.onrender.com/api/payment/redirect`,
       "redirectMode": "POST",
-      "callbackUrl": `/api/payment/redirect`,
+      "callbackUrl": `https://mern-ecommerce-website-mh4p.onrender.com/api/payment/redirect`,
       "mobileNumber": "9999999999",
       "paymentInstrument": {
         "type": "PAY_PAGE"
