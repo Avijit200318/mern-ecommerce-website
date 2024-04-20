@@ -166,7 +166,7 @@ export default function Search() {
                         <button className="w-full py-2 px-4 bg-blue-600 text-white text-lg rounded-md font-semibold transition-all duration-300 hover:bg-blue-500 disabled:bg-blue-500">Search</button>
                     </form>
                 </div>
-                <div className="right w-full h-full border border-black sm:p-2 lg:w-[70%]">
+                <div className="right w-full min-h-[100vh] border border-black sm:p-2 lg:w-[70%]">
                     <h1 className="text-2xl my-4 text-center md:text-start">Search Results</h1>
                     <div className="flex gap-1 flex-wrap justify-start sm:gap-1">
                         {loading && (
