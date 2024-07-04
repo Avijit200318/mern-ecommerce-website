@@ -9,20 +9,20 @@ export const payment = async (req, res, next) => {
     store.set('uuid', { tx: tx_uuid });
 
     let normalPayLoad = {
-      "merchantId": "PGTESTPAYUAT",
+      "merchantId": "PGTESTPAYUAT86",
       "merchantTransactionId": tx_uuid,
       "merchantUserId": "MUID123",
       "amount": req.body.price * 100,
-      "redirectUrl": `https://mern-ecommerce-website-mh4p.onrender.com/api/payment/redirect`,
-      "redirectMode": "POST",
-      "callbackUrl": `https://mern-ecommerce-website-mh4p.onrender.com/api/payment/redirect`,
+      "redirectUrl": `https://mern-ecommerce-website-mh4p.onrender.com/order`,
+      "redirectMode": "REDIRECT",
+      "callbackUrl": `https://mern-ecommerce-website-mh4p.onrender.com/order`,
       "mobileNumber": "9999999999",
       "paymentInstrument": {
         "type": "PAY_PAGE"
       }
     };
 
-    let saltKey = '099eb0cd-02cf-4e2a-8aca-3e6c6aff0399';
+    let saltKey = '96434309-7796-489d-8924-ab56988a6076';
     let saltIndex = 1;
 
     let bufferObj = Buffer.from(JSON.stringify(normalPayLoad), "utf8");
@@ -52,5 +52,5 @@ export const payment = async (req, res, next) => {
 };
 
 export const payRedirect = async (req, res, next) => {
-  return res.redirect("https://mern-ecommerce-website-mh4p.onrender.com/order");
+  
 }
